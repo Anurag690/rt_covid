@@ -6,7 +6,8 @@ var bodyParser = require("body-parser");
 var compression = require('compression');
 var cookieParser = require('cookie-parser');
 
-var viewRoutes = require('./routes');
+var viewRoutes = require('./backend/routers/viewRoutes');
+var apiRoutes = require('./backend/routers/apiRoutes');
 
 class App{
     constructor() {
@@ -31,7 +32,8 @@ class App{
         app.set('views', path.join(__dirname, '/backend/views'));
         app.set('view engine', 'ejs');
 
-        app.use('/', viewRoutes)
+        app.use('/', viewRoutes);
+        app.use('/api', apiRoutes);
 
         app.get('/', function (req, res, next) {
             res.send('Hello World!');

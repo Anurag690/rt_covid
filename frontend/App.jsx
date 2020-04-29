@@ -1,10 +1,11 @@
 import React from 'react';
-// import MyComponent from './components/component';
+import MyLineChart from './components/lineChart';
+import MyComposedChart from './components/composedChart';
 
 export default class App extends React.PureComponent{
     render(){
         return(
-            <div>Hello World!</div>
+            <MyComposedChart/>
         );
     }
 }
