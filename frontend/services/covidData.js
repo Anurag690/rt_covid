@@ -1,9 +1,19 @@
-export async function getCovidData() {
+export async function getCovidStatesData() {
     return new Promise((resolve, reject) => {
-        fetch('http://localhost:8080/api/rtcovid/data')
+        fetch('http://localhost:8080/api/rtcovid/states')
         .then(response => response.json())
         .then(data => {
-            console.log(data)
+            resolve(data)
+        })
+        .catch(err=>{reject(err)})
+    })
+}
+
+export async function getCovidCountryData() {
+    return new Promise((resolve, reject) => {
+        fetch('http://localhost:8080/api/rtcovid/country')
+        .then(response => response.json())
+        .then(data => {
             resolve(data)
         })
         .catch(err=>{reject(err)})

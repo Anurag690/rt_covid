@@ -1,16 +1,25 @@
-var getRTCovidData =  require('./rtCovid.service');
+var {getRTCovidStatesData, getRTCovidCountryData} =  require('./rtCovid.service');
 
-async function Ctrl_RTCovidData(req, res) {
+async function Ctrl_RTCovidStatesData(req, res) {
     try {
-            const result = await getRTCovidData();
+            const result = await getRTCovidStatesData();
             res.send(result);
-            // ctx.status = 200;
-            // ctx.body = { error: null, status: 1, data: result };
     }
     catch (e) {
         res.send("Something went wrong!")
-        // ctx.status = 500;
-        // ctx.body = { error: { show_alert: true, message: 'Something went wrong!' }, status: 0, data: null };
     }
 }
-module.exports = Ctrl_RTCovidData;
+
+async function Ctrl_RTCovidCountryData(req, res) {
+    try {
+        const result = await getRTCovidCountryData();
+        res.send(result);
+    }
+    catch (e) {
+        res.send("Something went wrong!")
+    }
+}
+
+module.exports = {
+    Ctrl_RTCovidCountryData, Ctrl_RTCovidStatesData
+};

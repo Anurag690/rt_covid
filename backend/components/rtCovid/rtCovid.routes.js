@@ -1,14 +1,15 @@
 var instance = null;
 var express = require('express');
 var router = express.Router();
-var getRTCovidDataController = require('./rtCovid.controller');
+var {Ctrl_RTCovidCountryData, Ctrl_RTCovidStatesData} = require('./rtCovid.controller');
 
 class RTCovidRoutes{
     constructor() {
         if(instance) {
             return router;
         }
-        router.get('/data', getRTCovidDataController);
+        router.get('/states', Ctrl_RTCovidStatesData);
+        router.get('/country', Ctrl_RTCovidCountryData);
         return router;
     }
 }
