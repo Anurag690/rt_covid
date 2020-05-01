@@ -40,9 +40,12 @@ export default class CountryChart extends React.Component {
         this.scrollTo(stateName);
     }
     mouseOver(event) {
+        console.log(event);
+        event.stopPropagation();
         event.target.style.strokeWidth = 2
     }
     mouseOut(event) {
+        event.stopPropagation();
         event.target.style.strokeWidth = 1
     }
     renderCustomizedLabel(props, item){
@@ -61,7 +64,7 @@ export default class CountryChart extends React.Component {
         return (
           <g style={{cursor: 'pointer'}} className="myTooltip" onClick={(event)=>context.handleCustomCircleClick(event, stateName)} onMouseEnter={(event)=>context.mouseOver(event)} onMouseLeave={(event)=>context.mouseOut(event)}>
             <rect width="20" height="14" rx="6.5" fill="white" x={x - width } y={y} stroke="rgb(235, 83, 88)"></rect>
-            <text x={x + width / 2} y={y+8} color="rgb(235, 83, 88)" stroke="rgb(235, 83, 88)" fontSize="8px" textAnchor="middle" fontWeight={200} dominantBaseline="middle">
+            <text x={x + width / 2} y={y+8} color="rgb(235, 83, 88)" stroke="rgb(235, 83, 88)" fontSize="8px" strokeWidth={1} textAnchor="middle" fontWeight={200} dominantBaseline="middle" onMouseEnter={(event)=>context.mouseOut(event)} onMouseLeave={(event)=>context.mouseOut(event)}>
               {initials}
             </text>
             <g className="myTooltipText" x={x + width / 2} y={y} fill="white" stroke="yellow" opacity="1" >

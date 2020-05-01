@@ -275,11 +275,14 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "mouseOver",
     value: function mouseOver(event) {
+      console.log(event);
+      event.stopPropagation();
       event.target.style.strokeWidth = 2;
     }
   }, {
     key: "mouseOut",
     value: function mouseOut(event) {
+      event.stopPropagation();
       event.target.style.strokeWidth = 1;
     }
   }, {
@@ -330,9 +333,16 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
         color: "rgb(235, 83, 88)",
         stroke: "rgb(235, 83, 88)",
         fontSize: "8px",
+        strokeWidth: 1,
         textAnchor: "middle",
         fontWeight: 200,
-        dominantBaseline: "middle"
+        dominantBaseline: "middle",
+        onMouseEnter: function onMouseEnter(event) {
+          return context.mouseOut(event);
+        },
+        onMouseLeave: function onMouseLeave(event) {
+          return context.mouseOut(event);
+        }
       }, initials), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("g", {
         className: "myTooltipText",
         x: x + width / 2,
