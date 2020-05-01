@@ -200,7 +200,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/index.js");
 /* harmony import */ var _services_covidData__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../services/covidData */ "./frontend/services/covidData.js");
-/* harmony import */ var _customTooltip__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./customTooltip */ "./frontend/components/customTooltip.jsx");
 
 
 
@@ -215,8 +214,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 
 
-
-
+ // import CustomTooltip from './customTooltip';
 
 var CountryChart = /*#__PURE__*/function (_React$Component) {
   _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default()(CountryChart, _React$Component);
@@ -230,7 +228,8 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      data: []
+      data: [],
+      customLabelHovered: false
     };
     _this.scrollTo = _this.scrollTo.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3___default()(_this));
     _this.handleBarClick = _this.handleBarClick.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3___default()(_this));
@@ -274,6 +273,16 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
       this.scrollTo(stateName);
     }
   }, {
+    key: "mouseOver",
+    value: function mouseOver(event) {
+      event.target.style.strokeWidth = 2;
+    }
+  }, {
+    key: "mouseOut",
+    value: function mouseOut(event) {
+      event.target.style.strokeWidth = 1;
+    }
+  }, {
     key: "renderCustomizedLabel",
     value: function renderCustomizedLabel(props, item) {
       var x = props.x,
@@ -300,13 +309,18 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
         className: "myTooltip",
         onClick: function onClick(event) {
           return context.handleCustomCircleClick(event, stateName);
+        },
+        onMouseEnter: function onMouseEnter(event) {
+          return context.mouseOver(event);
+        },
+        onMouseLeave: function onMouseLeave(event) {
+          return context.mouseOut(event);
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("rect", {
         width: "20",
         height: "14",
         rx: "6.5",
         fill: "white",
-        strokeWidth: "1.5",
         x: x - width,
         y: y,
         stroke: "rgb(235, 83, 88)"

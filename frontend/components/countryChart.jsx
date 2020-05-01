@@ -10,7 +10,8 @@ export default class CountryChart extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: []
+            data: [],
+            customLabelHovered: false
         }
         this.scrollTo = this.scrollTo.bind(this);
         this.handleBarClick = this.handleBarClick.bind(this);
@@ -38,6 +39,12 @@ export default class CountryChart extends React.Component {
         event.stopPropagation();
         this.scrollTo(stateName);
     }
+    mouseOver(event) {
+        event.target.style.strokeWidth = 2
+    }
+    mouseOut(event) {
+        event.target.style.strokeWidth = 1
+    }
     renderCustomizedLabel(props, item){
         const {
           x, y, width, height, value, index, ...rest
@@ -52,8 +59,8 @@ export default class CountryChart extends React.Component {
         var texth = 25,
 		textpadding = 5;
         return (
-          <g style={{cursor: 'pointer'}} className="myTooltip" onClick={(event)=>context.handleCustomCircleClick(event, stateName)}>
-            <rect width="20" height="14" rx="6.5" fill="white" strokeWidth="1.5" x={x - width } y={y} stroke="rgb(235, 83, 88)"></rect>
+          <g style={{cursor: 'pointer'}} className="myTooltip" onClick={(event)=>context.handleCustomCircleClick(event, stateName)} onMouseEnter={(event)=>context.mouseOver(event)} onMouseLeave={(event)=>context.mouseOut(event)}>
+            <rect width="20" height="14" rx="6.5" fill="white" x={x - width } y={y} stroke="rgb(235, 83, 88)"></rect>
             <text x={x + width / 2} y={y+8} color="rgb(235, 83, 88)" stroke="rgb(235, 83, 88)" fontSize="8px" textAnchor="middle" fontWeight={200} dominantBaseline="middle">
               {initials}
             </text>
