@@ -35,7 +35,18 @@ export default class ScrollToTop extends React.Component{
         return (
         <div className="scroll-to-top">
             {is_visible && (
-            <div style={{position: 'fixed', zIndex: '999', backgroundColor: '#0091ff', borderRadius: '16px', boxShadow: '0px 2px 12px rgba(0,0,0,0.12)', cursor: 'pointer', padding: '4px 10px', left: '47%', color: '#fff'}} onClick={() => this.scrollToTop()}>
+            <div style={{
+                position: 'fixed', 
+                zIndex: '999', 
+                backgroundColor: '#0091ff', 
+                borderRadius: '16px', 
+                boxShadow: '0px 2px 12px rgba(0,0,0,0.12)', 
+                cursor: 'pointer', 
+                padding: '4px 10px', 
+                left: '47%', 
+                color: '#fff',
+                marginTop: '1%'
+            }} onClick={() => this.scrollToTop()}>
                 ↑ Scroll to top
             </div>
             )}

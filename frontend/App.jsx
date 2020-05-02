@@ -3,6 +3,7 @@ import CountryChart from './components/countryChart';
 import StateCharts from './components/stateCharts';
 import ScrollToTop from './components/scrollToTop';
 import Footer from './components/footer';
+import Header from './components/header';
 
 export default class App extends React.PureComponent{
     constructor(props) {
@@ -18,7 +19,7 @@ export default class App extends React.PureComponent{
         return(
             <div style={{display: 'flex', flexDirection: 'column'}}>
                 <ScrollToTop/>
-                <h1 class="ant-typography" style={{marginLeft: '4%'}}>R<sub>t</sub> Covid-19 </h1>
+                <Header/>
                 <CountryChart/>
                 <StateCharts/>
                 <Footer/>
