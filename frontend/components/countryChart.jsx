@@ -11,13 +11,17 @@ export default class CountryChart extends React.Component {
         super(props);
         this.state = {
             data: [],
-            customLabelHovered: false
+            customLabelHovered: false,
+            barChartWidth: 1350,
+            initialWindowWidth: 0
         }
         this.scrollTo = this.scrollTo.bind(this);
         this.handleBarClick = this.handleBarClick.bind(this);
         this.renderCustomizedLabel = this.renderCustomizedLabel.bind(this);
         this.handleCustomCircleClick = this.handleCustomCircleClick.bind(this);
         this.renderDefs = this.renderDefs.bind(this);
+        this.onWindowResize = this.onWindowResize.bind(this);
+        this.getWindowWidth = this.getWindowWidth.bind(this);
     }
     componentDidMount() {
         getCovidCountryData().then((data)=>{
@@ -27,6 +31,32 @@ export default class CountryChart extends React.Component {
         }).catch(err=>{
             console.log(err);
         })
+        this.onWindowResize();
+        window.addEventListener("resize", this.onWindowResize);
+    }
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.onWindowResize);
+    }
+    getWindowWidth() {
+        return Math.max(
+          document.documentElement.clientWidth,
+          window.innerWidth || 0
+        );
+    }
+    onWindowResize() {
+        if(!this.state.initialWindowWidth) {
+            let windowSize = this.getWindowWidth();
+            this.setState({
+                initialWindowWidth: windowSize,
+                barChartWidth: windowSize-90
+            })
+        }
+        if(this.state.initialWindowWidth) {
+            let percentDiminished =  (this.getWindowWidth() / this.state.initialWindowWidth)*100;
+            this.setState({
+                barChartWidth: (this.state.initialWindowWidth - 90)*percentDiminished/100
+            })
+        }
     }
     scrollTo(ref) {
         setTimeout(function() {
@@ -138,10 +168,10 @@ export default class CountryChart extends React.Component {
             <div style={{
                 display: 'flex', 
                 flexWrap: 'wrap', 
-                padding: '3% 0% 3% 0%', 
+                padding: '0% 1.5% 0%', 
                 justifyContent: 'left'
             }}>
-                {this.state.data.length && <BarChart width={1200} height={250} barGap={-6} barSize={6} data={this.state.data} margin={{ top: 20, right: 60, bottom: 0, left: 20 }} onClick={this.handleBarClick}>
+                {this.state.data.length && <BarChart width={this.state.barChartWidth} height={250} barGap={-6} barSize={6} data={this.state.data} margin={{ top: 20, right: 60, bottom: 0, left: 20 }} onClick={this.handleBarClick}>
                     
                         {this.renderDefs()}
                     <XAxis 

@@ -229,13 +229,17 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       data: [],
-      customLabelHovered: false
+      customLabelHovered: false,
+      barChartWidth: 1350,
+      initialWindowWidth: 0
     };
     _this.scrollTo = _this.scrollTo.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
     _this.handleBarClick = _this.handleBarClick.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
     _this.renderCustomizedLabel = _this.renderCustomizedLabel.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
     _this.handleCustomCircleClick = _this.handleCustomCircleClick.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
     _this.renderDefs = _this.renderDefs.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+    _this.onWindowResize = _this.onWindowResize.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+    _this.getWindowWidth = _this.getWindowWidth.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
     return _this;
   }
 
@@ -251,6 +255,36 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
       })["catch"](function (err) {
         console.log(err);
       });
+      this.onWindowResize();
+      window.addEventListener("resize", this.onWindowResize);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      window.removeEventListener("resize", this.onWindowResize);
+    }
+  }, {
+    key: "getWindowWidth",
+    value: function getWindowWidth() {
+      return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    }
+  }, {
+    key: "onWindowResize",
+    value: function onWindowResize() {
+      if (!this.state.initialWindowWidth) {
+        var windowSize = this.getWindowWidth();
+        this.setState({
+          initialWindowWidth: windowSize,
+          barChartWidth: windowSize - 90
+        });
+      }
+
+      if (this.state.initialWindowWidth) {
+        var percentDiminished = this.getWindowWidth() / this.state.initialWindowWidth * 100;
+        this.setState({
+          barChartWidth: (this.state.initialWindowWidth - 90) * percentDiminished / 100
+        });
+      }
     }
   }, {
     key: "scrollTo",
@@ -465,11 +499,11 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
         style: {
           display: 'flex',
           flexWrap: 'wrap',
-          padding: '3% 0% 3% 0%',
+          padding: '0% 1.5% 0%',
           justifyContent: 'left'
         }
       }, this.state.data.length && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_9__["BarChart"], {
-        width: 1200,
+        width: this.state.barChartWidth,
         height: 250,
         barGap: -6,
         barSize: 6,
@@ -717,6 +751,7 @@ var Footer = /*#__PURE__*/function (_React$Component) {
         href: "https://www.linkedin.com/in/anurag-gupta690",
         target: "_blank"
       }, "Anurag"), "."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("span", null, "Thanks to ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("a", {
+        target: "_blank",
         href: "https://twitter.com/kevin"
       }, "Kevin Systrom"), " for his contributions for the US version - ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("a", {
         target: "_blank",
@@ -799,9 +834,8 @@ var Header = /*#__PURE__*/function (_React$Component) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
         style: {
           backgroundColor: 'white',
-          paddingLeft: '5%',
+          paddingLeft: '7%',
           marginTop: '2%',
-          height: '200px',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'left',
@@ -815,7 +849,7 @@ var Header = /*#__PURE__*/function (_React$Component) {
           letterSpacing: '-0.5px',
           marginBottom: '0.3em'
         }
-      }, rtText(), " Covid-19"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("span", {
+      }, rtText(), " Covid-19"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
         style: {
           color: 'rgba(0,0,0,0.65)',
           lineHeight: 1.5715,
@@ -825,7 +859,7 @@ var Header = /*#__PURE__*/function (_React$Component) {
         }
       }, "These are up-to-date values for ", rtText(), ", a key measure of how fast the virus is growing. It\u2019s the average number of people who become infected by an infectious person. If ", rtText(), " is above 1.0, the virus will spread quickly. When ", rtText(), " is below 1.0, the virus will stop spreading. You can learn more about it on the ", rtText(), " Live website. You can learn more about it on the ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("a", {
         target: "_blank",
-        href: "https//rt.live"
+        href: "https://rt.live"
       }, "rt.live"), " website."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
         style: {
           boxSizing: 'border-box',
@@ -1050,7 +1084,6 @@ var StateCharts = /*#__PURE__*/function (_React$Component) {
           return event.preventDefault();
         },
         width: "100%",
-        height: 300,
         style: {
           display: 'flex',
           flexDirection: 'column',
@@ -1058,7 +1091,7 @@ var StateCharts = /*#__PURE__*/function (_React$Component) {
           marginTop: '1%',
           marginBottom: '1%',
           color: 'rgba(0,0,0,0.85)',
-          flex: '1 0 21%'
+          flex: '1 0 20%'
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", {
         style: {
@@ -1067,15 +1100,17 @@ var StateCharts = /*#__PURE__*/function (_React$Component) {
         }
       }, item), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_7__["ComposedChart"], {
         width: 400,
-        height: 200,
+        height: 250,
         data: this.state.data[item].item,
         margin: {
           top: 10,
-          right: 20,
-          left: -35,
+          right: 30,
+          left: -15,
           bottom: 10
         },
-        stackOffset: "none"
+        stackOffset: "none",
+        fill: "white",
+        stroke: "#eee"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("defs", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("linearGradient", {
         id: "color90" + index,
         x1: "0%",
@@ -1155,26 +1190,41 @@ var StateCharts = /*#__PURE__*/function (_React$Component) {
         }))
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_7__["CartesianGrid"], {
         stroke: "rgba(0, 0, 0, 0.05)",
-        verticalPoints: [0]
+        fillOpacity: 1,
+        verticalPoints: [0],
+        opacity: 1
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_7__["Line"], {
         type: "monotone",
         dataKey: "RT",
-        strokeWidth: "1",
+        strokeWidth: 1.5,
+        opacity: 1,
         stroke: "url(#colorML" + index + ")",
-        dot: false
+        strokeLinecap: "butt",
+        dot: false,
+        fillOpacity: 1,
+        strokeOpacity: 1,
+        floodOpacity: 1,
+        isFront: "true",
+        strokeDasharray: 0
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_7__["ReferenceLine"], {
         y: 1,
         textRendering: "geometricPrecision",
-        stroke: "rgba(235, 83, 88, 0.5)",
-        opacity: "0.4",
-        isFront: true
+        stroke: "rgba(0, 0, 0, 0.3)",
+        opacity: "1",
+        isFront: "true",
+        fillOpacity: 1,
+        strokeOpacity: 1,
+        alwaysShow: true
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_7__["Area"], {
         type: "monotone",
-        strokeOpacity: "0",
+        strokeWidth: "0",
         strokeLinejoin: "round",
         strokeLinecap: "round",
         dataKey: "RT_90",
-        fill: "url(#color90" + index + ")"
+        fill: "url(#color90" + index + ")" // opacity={0.8}
+        // fillOpacity={0.8}
+        // strokeWidth={1.5}
+
       })));
     }
   }, {
@@ -1185,9 +1235,8 @@ var StateCharts = /*#__PURE__*/function (_React$Component) {
         style: {
           display: 'flex',
           flexWrap: 'wrap',
-          justifyContent: 'space-between',
           alignItems: 'start',
-          padding: '0% 5% 5% 5%'
+          padding: '0% 7% 2% 7%'
         }
       }, Object.keys(this.state.data).map(function (item, index) {
         if (item !== "India") return that.loadStatesGraph(item, index);

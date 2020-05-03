@@ -10,9 +10,8 @@ export default class Header extends React.Component{
         return(
             <div style={{
                 backgroundColor: 'white',
-                paddingLeft: '5%',
+                paddingLeft: '7%',
                 marginTop: '2%',
-                height: '200px',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'left',
@@ -26,15 +25,15 @@ export default class Header extends React.Component{
                 }}>
                     {rtText()} Covid-19 
                 </h1>
-                <span style={{
+                <div style={{
                     color: 'rgba(0,0,0,0.65)', 
                     lineHeight: 1.5715, 
                     maxWidth: '70%', 
                     fontSize: '14px',
                     marginBottom: '1%'
                 }}>
-                    These are up-to-date values for {rtText()}, a key measure of how fast the virus is growing. It’s the average number of people who become infected by an infectious person. If {rtText()} is above 1.0, the virus will spread quickly. When {rtText()} is below 1.0, the virus will stop spreading. You can learn more about it on the {rtText()} Live website. You can learn more about it on the <a target="_blank" href="https//rt.live">rt.live</a> website.
-                </span>
+                    These are up-to-date values for {rtText()}, a key measure of how fast the virus is growing. It’s the average number of people who become infected by an infectious person. If {rtText()} is above 1.0, the virus will spread quickly. When {rtText()} is below 1.0, the virus will stop spreading. You can learn more about it on the {rtText()} Live website. You can learn more about it on the <a target="_blank" href="https://rt.live">rt.live</a> website.
+                </div>
                 <div>
                     <div style={{
                         boxSizing: 'border-box', 
