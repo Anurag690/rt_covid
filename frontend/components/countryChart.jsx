@@ -183,13 +183,11 @@ export default class CountryChart extends React.Component {
                         tickLine={false} 
                     />
                     <YAxis 
-                        // type="number" 
                         stroke="rgba(0, 0, 0, 0.05)"
                         ticks={[-0.2,0,0.2,0.4,0.6,0.8,1,1.2,1.4,1.6,1.8,2.0,2.4,2.6,2.8,3.0,3.2]} 
                         domain={[-0.5,3.5]} 
                         minTickGap={2}
-                        interval={1} 
-                        // allowDecimals={false} 
+                        interval={1}                      
                         tick={{fill: 'rgba(0, 0, 0, 0.4)', height: 20 ,fontSize: '12px' }}
                         tickLine={false} 
                         allowDataOverflow={true}

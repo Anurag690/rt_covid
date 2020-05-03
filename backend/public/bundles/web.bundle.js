@@ -345,7 +345,6 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
         customColor = "rgba(235, 83, 88, 0.5)";
       }
 
-      console.log(props);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("g", {
         style: {
           cursor: 'pointer'
@@ -523,14 +522,12 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
         tick: false,
         tickCount: 0,
         tickLine: false
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_9__["YAxis"] // type="number" 
-      , {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_9__["YAxis"], {
         stroke: "rgba(0, 0, 0, 0.05)",
         ticks: [-0.2, 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2.0, 2.4, 2.6, 2.8, 3.0, 3.2],
         domain: [-0.5, 3.5],
         minTickGap: 2,
-        interval: 1 // allowDecimals={false} 
-        ,
+        interval: 1,
         tick: {
           fill: 'rgba(0, 0, 0, 0.4)',
           height: 20,
@@ -1185,7 +1182,8 @@ var StateCharts = /*#__PURE__*/function (_React$Component) {
           fontSize: '12px'
         },
         tickLine: false,
-        orientation: "right"
+        orientation: "right",
+        allowDataOverflow: true
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_7__["Tooltip"], {
         content: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_customTooltip__WEBPACK_IMPORTED_MODULE_9__["default"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, this.props, {
           myLabelType: "date"

@@ -75,6 +75,7 @@ export default class StateCharts extends React.Component {
                         tick={{fill: 'rgba(0, 0, 0, 0.4)', fontSize: '12px' }} 
                         tickLine={false} 
                         orientation="right"
+                        allowDataOverflow={true}
                     />
                     <Tooltip 
                         content={<CustomTooltip {...this.props} myLabelType="date"/>}
