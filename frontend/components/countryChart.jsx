@@ -97,15 +97,14 @@ export default class CountryChart extends React.Component {
         if((+value)>1) {
             customColor = "rgba(235, 83, 88, 0.5)"
         }
-
         return (
           <g style={{cursor: 'pointer'}} className="myTooltip" onClick={(event)=>context.handleCustomCircleClick(event, stateName)} onMouseEnter={(event)=>context.mouseOver(event)} onMouseLeave={(event)=>context.mouseOut(event)}>
-            <rect width="20" height="14" rx="6.5" fill="white" x={x - width } y={y} stroke={customColor}></rect>
-            <text x={x + width / 2} y={y+8} color={customColor} stroke={customColor} fontSize="8px" strokeWidth={1} textAnchor="middle" fontWeight={200} dominantBaseline="middle" onMouseEnter={(event)=>context.mouseOut(event)} onMouseLeave={(event)=>context.mouseOut(event)}>
+            <rect width="20" height="14" fill="white" x={x - width } y={y+height/2} stroke={customColor}></rect>
+            <text x={x + width / 2} y={y+8+height/2} color={customColor} stroke={customColor} fontSize="8px" strokeWidth={1} textAnchor="middle" fontWeight={200} dominantBaseline="middle" onMouseEnter={(event)=>context.mouseOut(event)} onMouseLeave={(event)=>context.mouseOut(event)}>
               {initials}
             </text>
-            <g className="myTooltipText" x={x + width / 2} y={y} fill="white" stroke="yellow" opacity="1" >
-                <text fill="gray" transform={"translate("+textpadding+","+(textpadding*2+texth)+")"} x={x + 5 + width / 2} y={y-70} fontSize="" color="#fff" stroke="black" strokeOpacity="0.5" opacity="0.5" strokeWidth={1} textAnchor="middle" dominantBaseline="middle">{stateName + " : " +(+value).toFixed(2)}</text>
+            <g className="myTooltipText" x={x + width / 2} y={y+height/2} fill="white" stroke="yellow" opacity="1" >
+                <text fill="gray" transform={"translate("+textpadding+","+(textpadding*2+texth)+")"} x={x + 5 + width / 2} y={y-70+height/2} fontSize="" color="#fff" stroke="black" strokeOpacity="0.5" opacity="0.5" strokeWidth={1} textAnchor="middle" dominantBaseline="middle">{stateName + " : " +(value).toFixed(2)}</text>
             </g>
           </g>
         );
@@ -171,7 +170,7 @@ export default class CountryChart extends React.Component {
                 padding: '0% 1.5% 0%', 
                 justifyContent: 'left'
             }}>
-                {this.state.data.length && <BarChart width={this.state.barChartWidth} height={250} barGap={-6} barSize={6} data={this.state.data} margin={{ top: 20, right: 60, bottom: 0, left: 20 }} onClick={this.handleBarClick}>
+                {this.state.data.length && <BarChart width={this.state.barChartWidth} height={350} barGap={-6} barSize={6} data={this.state.data} margin={{ top: 20, right: 60, bottom: 0, left: 20 }} onClick={this.handleBarClick}>
                     
                         {this.renderDefs()}
                     <XAxis 
@@ -184,15 +183,16 @@ export default class CountryChart extends React.Component {
                         tickLine={false} 
                     />
                     <YAxis 
-                        type="number" 
+                        // type="number" 
                         stroke="rgba(0, 0, 0, 0.05)"
-                        ticks={[-0.5,0,1,2.5,3.5]} 
+                        ticks={[-0.2,0,0.2,0.4,0.6,0.8,1,1.2,1.4,1.6,1.8,2.0,2.4,2.6,2.8,3.0,3.2]} 
                         domain={[-0.5,3.5]} 
-                        minTickGap={3}
-                        interval="preserveStartEnd" 
-                        allowDecimals={false} 
-                        tick={{fill: 'rgba(0, 0, 0, 0.4)', fontSize: '12px' }}
+                        minTickGap={2}
+                        interval={1} 
+                        // allowDecimals={false} 
+                        tick={{fill: 'rgba(0, 0, 0, 0.4)', height: 20 ,fontSize: '12px' }}
                         tickLine={false} 
+                        allowDataOverflow={true}
                     />
                     <Legend 
                         verticalAlign="bottom" 
@@ -202,15 +202,15 @@ export default class CountryChart extends React.Component {
                         left={"7%"} 
                         top={"75%"} 
                         payload={legendTypes}
-                        wrapperStyle={{left: '7%', top: "76%", opacity: '0.2'}}
+                        wrapperStyle={{left: '7%', top: "84%", opacity: '0.2'}}
                     />
                     {/* <Tooltip content={<CustomTooltip/>}/> */}
                     <CartesianGrid stroke="rgba(0, 0, 0, 0.05)" />
                     <Bar shape={(myProps)=>context.customBar(myProps, "90")} fill="rgba(235, 83, 88, 0.5)" dataKey="RT_90" radius={[5, 5, 5, 5]} />
                     <Bar shape={(myProps)=>context.customBar(myProps, "50")} fill="rgba(235, 83, 88, 0.8)" dataKey="RT_50" radius={[5, 5, 5, 5]} >
-                        <LabelList dataKey="RT" content={(myProps)=>this.renderCustomizedLabel(myProps, this.state.data)}/>
+                        <LabelList position="center" dataKey="RT" content={(myProps)=>this.renderCustomizedLabel(myProps, this.state.data)}/>
                     </Bar>
-                    <ReferenceLine y={1} textRendering="geometricPrecision" stroke="rgba(235, 83, 88, 0.5)"/>
+                    <ReferenceLine y={1} stroke="rgba(235, 83, 88, 0.5)"/>
                 </BarChart>}
             </div>
         );

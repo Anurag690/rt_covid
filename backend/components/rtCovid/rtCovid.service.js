@@ -14,7 +14,7 @@ function getRTCovidStatesData() {
             if(stateObject[state]) {
                 stateObject[state].push({
                     date,
-                    RT: ML,
+                    RT: (+ML),
                     RT_90: [(+Low_90), (+High_90)],
                     RT_50: [(+Low_50), (+High_50)],
                     Low_90: (+Low_90),
@@ -25,7 +25,7 @@ function getRTCovidStatesData() {
                 stateObject[state] = [];
                 stateObject[state].push({
                     date,
-                    RT: ML,
+                    RT: (+ML),
                     RT_90: [(+Low_90), (+High_90)],
                     RT_50: [(+Low_50), (+High_50)],
                     Low_90: (+Low_90),
@@ -82,7 +82,7 @@ function getRTCovidCountryData() {
                     stateObject[state] = {
                         state,
                         date,
-                        RT: ML,
+                        RT: (+ML),
                         RT_90: [(+Low_90), (+High_90)],
                         RT_50: [(+Low_50), (+High_50)],
                         Low_90: (+Low_90),
@@ -97,7 +97,7 @@ function getRTCovidCountryData() {
                     stateObject[state] = {
                         state,
                         date,
-                        RT: ML,
+                        RT: (+ML),
                         RT_90: [(+Low_90), (+High_90)],
                         RT_50: [(+Low_50), (+High_50)],
                         Low_90: (+Low_90),
@@ -111,7 +111,9 @@ function getRTCovidCountryData() {
                 callback();
             }
         }, err=>{
-            resolve(Object.values(stateObject));
+            let resultArray = Object.values(stateObject);
+            resultArray = resultArray.sort(function(a,b){return a.RT - b.RT})
+            resolve(resultArray);
         })
     })
 }

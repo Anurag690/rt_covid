@@ -345,6 +345,7 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
         customColor = "rgba(235, 83, 88, 0.5)";
       }
 
+      console.log(props);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("g", {
         style: {
           cursor: 'pointer'
@@ -362,14 +363,13 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("rect", {
         width: "20",
         height: "14",
-        rx: "6.5",
         fill: "white",
         x: x - width,
-        y: y,
+        y: y + height / 2,
         stroke: customColor
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("text", {
         x: x + width / 2,
-        y: y + 8,
+        y: y + 8 + height / 2,
         color: customColor,
         stroke: customColor,
         fontSize: "8px",
@@ -386,7 +386,7 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
       }, initials), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("g", {
         className: "myTooltipText",
         x: x + width / 2,
-        y: y,
+        y: y + height / 2,
         fill: "white",
         stroke: "yellow",
         opacity: "1"
@@ -394,7 +394,7 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
         fill: "gray",
         transform: "translate(" + textpadding + "," + (textpadding * 2 + texth) + ")",
         x: x + 5 + width / 2,
-        y: y - 70,
+        y: y - 70 + height / 2,
         fontSize: "",
         color: "#fff",
         stroke: "black",
@@ -403,7 +403,7 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
         strokeWidth: 1,
         textAnchor: "middle",
         dominantBaseline: "middle"
-      }, stateName + " : " + (+value).toFixed(2))));
+      }, stateName + " : " + value.toFixed(2))));
     }
   }, {
     key: "customBar",
@@ -504,7 +504,7 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
         }
       }, this.state.data.length && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_9__["BarChart"], {
         width: this.state.barChartWidth,
-        height: 250,
+        height: 350,
         barGap: -6,
         barSize: 6,
         data: this.state.data,
@@ -523,19 +523,21 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
         tick: false,
         tickCount: 0,
         tickLine: false
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_9__["YAxis"], {
-        type: "number",
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_9__["YAxis"] // type="number" 
+      , {
         stroke: "rgba(0, 0, 0, 0.05)",
-        ticks: [-0.5, 0, 1, 2.5, 3.5],
+        ticks: [-0.2, 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2.0, 2.4, 2.6, 2.8, 3.0, 3.2],
         domain: [-0.5, 3.5],
-        minTickGap: 3,
-        interval: "preserveStartEnd",
-        allowDecimals: false,
+        minTickGap: 2,
+        interval: 1 // allowDecimals={false} 
+        ,
         tick: {
           fill: 'rgba(0, 0, 0, 0.4)',
+          height: 20,
           fontSize: '12px'
         },
-        tickLine: false
+        tickLine: false,
+        allowDataOverflow: true
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_9__["Legend"], {
         verticalAlign: "bottom",
         height: 36,
@@ -546,7 +548,7 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
         payload: legendTypes,
         wrapperStyle: {
           left: '7%',
-          top: "76%",
+          top: "84%",
           opacity: '0.2'
         }
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_9__["CartesianGrid"], {
@@ -566,13 +568,13 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
         dataKey: "RT_50",
         radius: [5, 5, 5, 5]
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_9__["LabelList"], {
+        position: "center",
         dataKey: "RT",
         content: function content(myProps) {
           return _this3.renderCustomizedLabel(myProps, _this3.state.data);
         }
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_9__["ReferenceLine"], {
         y: 1,
-        textRendering: "geometricPrecision",
         stroke: "rgba(235, 83, 88, 0.5)"
       })));
     }
