@@ -44,17 +44,17 @@ export default class CountryChart extends React.Component {
         );
     }
     onWindowResize() {
+        let windowSize = this.getWindowWidth();
         if(!this.state.initialWindowWidth) {
-            let windowSize = this.getWindowWidth();
             this.setState({
                 initialWindowWidth: windowSize,
-                barChartWidth: windowSize-90
+                barChartWidth: windowSize<764?764-90 : windowSize-90
             })
         }
         if(this.state.initialWindowWidth) {
-            let percentDiminished =  (this.getWindowWidth() / this.state.initialWindowWidth)*100;
+            let percentDiminished =  (windowSize / this.state.initialWindowWidth)*100;
             this.setState({
-                barChartWidth: (this.state.initialWindowWidth - 90)*percentDiminished/100
+                barChartWidth: windowSize<764?764-90 :(this.state.initialWindowWidth - 90)*percentDiminished/100
             })
         }
     }
@@ -85,10 +85,7 @@ export default class CountryChart extends React.Component {
         } = props;
         var initials = item[index].state_ab;
         var stateName = item[index].state
-        // var words = stateName.replace(/and /g, "").split(" ");
-        // words.map((item, index)=>{
-        //     initials += item.substr(0,1)
-        // })
+        
         let context = this;
         var texth = 25,
         textpadding = 5;
@@ -119,16 +116,16 @@ export default class CountryChart extends React.Component {
             {this.state.data && this.state.data.map((item, index)=>
                 <defs>
                     <linearGradient id={"colorBar90_"+index} x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor="rgba(235, 83, 88, 0.5)" stopOpacity="1" />
-                        <stop offset={item.colorBreakPointPercentage90} stopColor="rgba(235, 83, 88, 0.5)" stopOpacity="1" opacity="0.5" />
-                        <stop offset={item.colorBreakPointPercentage90} stopColor="rgba(53, 179, 46, 0.5)" stopOpacity="1" />
-                        <stop offset="100%" stopColor="rgba(53, 179, 46, 0.5)" stopOpacity="1" />
+                        <stop offset="0%" stopColor="rgba(235, 83, 88, 0.2)" stopOpacity="1" />
+                        <stop offset={item.colorBreakPointPercentage90} stopColor="rgba(235, 83, 88, 0.2)" stopOpacity="1" />
+                        <stop offset={item.colorBreakPointPercentage90} stopColor="rgba(53, 179, 46, 0.2)" stopOpacity="1" />
+                        <stop offset="100%" stopColor="rgba(53, 179, 46, 0.2)" stopOpacity="1" />
                     </linearGradient>
                     <linearGradient id={"colorBar50_"+index} x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor="rgba(235, 83, 88, 1.0)" opacity="1" stopOpacity="1" />
-                        <stop offset={item.colorBreakPointPercentage50} stopColor="rgba(235, 83, 88, 1.0)" opacity="1" stopOpacity="1" />
-                        <stop offset={item.colorBreakPointPercentage50} stopColor="rgba(53, 179, 46, 0.8)" stopOpacity="1" />
-                        <stop offset="100%" stopColor="rgba(53, 179, 46, 0.8)" stopOpacity="1" />
+                        <stop offset="0%" stopColor="rgba(235, 83, 88, 0.3)" opacity="1" stopOpacity="1" />
+                        <stop offset={item.colorBreakPointPercentage50} stopColor="rgba(235, 83, 88, 0.3)" opacity="1" stopOpacity="1" />
+                        <stop offset={item.colorBreakPointPercentage50} stopColor="rgba(53, 179, 46, 0.3)" stopOpacity="1" />
+                        <stop offset="100%" stopColor="rgba(53, 179, 46, 0.3)" stopOpacity="1" />
                     </linearGradient>
                 </defs>
             )}
