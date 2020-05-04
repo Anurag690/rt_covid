@@ -2,7 +2,7 @@ var path = require('path');
 const webpack = require('webpack');
 
 var config = {
-    mode: 'development',
+    mode: 'production',
     devtool : 'source-map',
     entry: './frontend/main.js',
     output: {
