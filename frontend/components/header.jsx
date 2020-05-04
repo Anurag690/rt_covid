@@ -1,9 +1,20 @@
 import React from 'react';
 import moment from 'moment';
+import {getCovidUpdationDate} from '../services/covidData';
 
 export default class Header extends React.Component{
     constructor(props) {
         super(props);
+        this.state = {
+            updationDate: ""
+        }
+    }
+    componentDidMount() {
+        getCovidUpdationDate().then(data=>{
+            this.setState({
+                updationDate: data.updationDate
+            })
+        })
     }
     render() {
         const rtText = function(){return(<span>R<sub>t</sub></span>)}
@@ -21,7 +32,8 @@ export default class Header extends React.Component{
                     fontSize: '38px', 
                     fontWeight: '600', 
                     letterSpacing: '-0.5px', 
-                    marginBottom: '0.3em'
+                    marginBottom: '0.3em',
+                    marginTop: '0.3em'
                 }}>
                     {rtText()} Covid-19 
                 </h1>
@@ -45,7 +57,7 @@ export default class Header extends React.Component{
                         fontSize: '12px',
                         display: 'inline-block'
                     }}>
-                        Data Last Updated: {moment("2020-04-26").format("LL")}
+                        Data Last Updated: {moment(this.state.updationDate).format("LL")}
                     </div>
                 </div>
             </div>

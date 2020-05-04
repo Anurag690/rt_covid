@@ -83,12 +83,12 @@ export default class CountryChart extends React.Component {
         const {
           x, y, width, height, value, index, ...rest
         } = props;
-        var initials = "";
+        var initials = item[index].state_ab;
         var stateName = item[index].state
-        var words = stateName.replace(/and /g, "").split(" ");
-        words.map((item, index)=>{
-            initials += item.substr(0,1)
-        })
+        // var words = stateName.replace(/and /g, "").split(" ");
+        // words.map((item, index)=>{
+        //     initials += item.substr(0,1)
+        // })
         let context = this;
         var texth = 25,
         textpadding = 5;
@@ -99,12 +99,12 @@ export default class CountryChart extends React.Component {
         }
         return (
           <g style={{cursor: 'pointer'}} className="myTooltip" onClick={(event)=>context.handleCustomCircleClick(event, stateName)} onMouseEnter={(event)=>context.mouseOver(event)} onMouseLeave={(event)=>context.mouseOut(event)}>
-            <rect width="20" height="14" fill="white" x={x - width } y={y+height/2} stroke={customColor}></rect>
-            <text x={x + width / 2} y={y+8+height/2} color={customColor} stroke={customColor} fontSize="8px" strokeWidth={1} textAnchor="middle" fontWeight={200} dominantBaseline="middle" onMouseEnter={(event)=>context.mouseOut(event)} onMouseLeave={(event)=>context.mouseOut(event)}>
+            <rect width="30" height="18" rx="8.5" fill="white" x={x-width/2} y={y+height/2} stroke={customColor}></rect>
+            <text x={x + width / 2} y={y+10+height/2} color={customColor} stroke={customColor} fontSize="12px" strokeWidth={1} textAnchor="middle" fontWeight={200} dominantBaseline="middle" onMouseEnter={(event)=>context.mouseOut(event)} onMouseLeave={(event)=>context.mouseOut(event)}>
               {initials}
             </text>
             <g className="myTooltipText" x={x + width / 2} y={y+height/2} fill="white" stroke="yellow" opacity="1" >
-                <text fill="gray" transform={"translate("+textpadding+","+(textpadding*2+texth)+")"} x={x + 5 + width / 2} y={y-70+height/2} fontSize="" color="#fff" stroke="black" strokeOpacity="0.5" opacity="0.5" strokeWidth={1} textAnchor="middle" dominantBaseline="middle">{stateName + " : " +(value).toFixed(2)}</text>
+                <text fill="gray" transform={"translate("+textpadding+","+(textpadding*2+texth)+")"} x={x + 5 + width / 2} y={y-70+height/2} color="#fff" stroke="black" strokeOpacity="0.5" opacity="0.5" strokeWidth={1} textAnchor="middle" dominantBaseline="middle">{stateName + " : " +(value).toFixed(2)}</text>
             </g>
           </g>
         );
@@ -139,25 +139,25 @@ export default class CountryChart extends React.Component {
         let context = this;
         let legendTypes = [
             {
-                value: "RT 50%",
+                value: "CI 50%",
                 type: "square",
                 id: "0",
                 color: "rgba(235, 83, 88, 0.8)"
             },
             {
-                value: "RT 90%",
+                value: "CI 90%",
                 type: "square",
                 id: "1",
                 color: "rgba(235, 83, 88, 0.5)"
             },
             {
-                value: "RT 50%",
+                value: "CI 50%",
                 type: "square",
                 id: "2",
                 color: "rgba(53, 179, 46, 0.8)"
             },
             {
-                value: "RT 90%",
+                value: "CI 90%",
                 type: "square",
                 id: "3",
                 color: "rgba(53, 179, 46, 0.5)"
@@ -170,7 +170,7 @@ export default class CountryChart extends React.Component {
                 padding: '0% 1.5% 0%', 
                 justifyContent: 'left'
             }}>
-                {this.state.data.length && <BarChart width={this.state.barChartWidth} height={350} barGap={-6} barSize={6} data={this.state.data} margin={{ top: 20, right: 60, bottom: 0, left: 20 }} onClick={this.handleBarClick}>
+                {this.state.data.length && <BarChart width={this.state.barChartWidth} height={350} barGap={-14} barSize={14} data={this.state.data} margin={{ top: 20, right: 60, bottom: 0, left: 20 }} onClick={this.handleBarClick}>
                     
                         {this.renderDefs()}
                     <XAxis 
@@ -184,8 +184,8 @@ export default class CountryChart extends React.Component {
                     />
                     <YAxis 
                         stroke="rgba(0, 0, 0, 0.05)"
-                        ticks={[-0.2,0,0.2,0.4,0.6,0.8,1,1.2,1.4,1.6,1.8,2.0,2.4,2.6,2.8,3.0,3.2]} 
-                        domain={[-0.5,3.5]} 
+                        ticks={[0,0.2,0.4,0.6,0.8,1,1.2,1.4,1.6,1.8,2.0,2.4,2.6,2.8,3.0,3.2]} 
+                        domain={[0,3.5]} 
                         minTickGap={2}
                         interval={1}                      
                         tick={{fill: 'rgba(0, 0, 0, 0.4)', height: 20 ,fontSize: '12px' }}
@@ -204,8 +204,8 @@ export default class CountryChart extends React.Component {
                     />
                     {/* <Tooltip content={<CustomTooltip/>}/> */}
                     <CartesianGrid stroke="rgba(0, 0, 0, 0.05)" />
-                    <Bar shape={(myProps)=>context.customBar(myProps, "90")} fill="rgba(235, 83, 88, 0.5)" dataKey="RT_90" radius={[5, 5, 5, 5]} />
-                    <Bar shape={(myProps)=>context.customBar(myProps, "50")} fill="rgba(235, 83, 88, 0.8)" dataKey="RT_50" radius={[5, 5, 5, 5]} >
+                    <Bar shape={(myProps)=>context.customBar(myProps, "90")} fill="rgba(235, 83, 88, 0.5)" dataKey="RT_90" radius={[14, 14, 14, 14]} />
+                    <Bar shape={(myProps)=>context.customBar(myProps, "50")} fill="rgba(235, 83, 88, 0.8)" dataKey="RT_50" radius={[14, 14, 14, 14]} >
                         <LabelList position="center" dataKey="RT" content={(myProps)=>this.renderCustomizedLabel(myProps, this.state.data)}/>
                     </Bar>
                     <ReferenceLine y={1} stroke="rgba(235, 83, 88, 0.5)"/>

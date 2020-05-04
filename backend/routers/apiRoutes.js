@@ -1,7 +1,6 @@
 var instance = null;
 var express = require('express');
 var router = express.Router();
-var path = require('path');
 
 var rtCovidRoutes = require('../components/rtCovid/rtCovid.routes');
 
@@ -21,4 +20,4 @@ class Routes{
         return router;
     }
 }
-module.exports = new Routes(); 
+module.exports = new Routes();

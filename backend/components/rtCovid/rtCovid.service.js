@@ -71,7 +71,7 @@ function getRTCovidCountryData() {
         var newArray = [];
         var stateObject = {};
         async.forEachOfSeries(jsonArray, (item, index, callback)=>{
-            var {state, date, ML, Low_90, Low_50, High_50, High_90} = item;
+            var {state, date, ML, Low_90, Low_50, High_50, High_90, state_ab} = item;
             if(state!=="India") {
                 
                 var colorBreakPoint = 1;
@@ -88,7 +88,8 @@ function getRTCovidCountryData() {
                         Low_90: (+Low_90),
                         High_90: (+High_90),
                         colorBreakPointPercentage50,
-                        colorBreakPointPercentage90
+                        colorBreakPointPercentage90,
+                        state_ab
                     };
                     callback();
                 } else {
@@ -103,7 +104,8 @@ function getRTCovidCountryData() {
                         Low_90: (+Low_90),
                         High_90: (+High_90),
                         colorBreakPointPercentage50,
-                        colorBreakPointPercentage90
+                        colorBreakPointPercentage90,
+                        state_ab
                     };
                     callback();
                 }

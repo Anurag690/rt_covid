@@ -67,8 +67,8 @@ export default class StateCharts extends React.Component {
                     />
                     <YAxis 
                         type="number" 
-                        ticks={[-0.5,0,1,2.5,3.5]} 
-                        domain={[-0.5,3.5]} 
+                        ticks={[0.4,0.6,0.8,1,1.2,1.4,1.6,1.8,2.0,2.2,2.4,2.6,2.8,3.0,3.5]} 
+                        domain={[0.2,3.5]} 
                         interval="preserveStartEnd"
                         minTickGap={3} 
                         stroke="rgba(0, 0, 0, 0.05)"

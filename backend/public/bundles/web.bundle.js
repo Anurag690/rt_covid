@@ -330,12 +330,12 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
           index = props.index,
           rest = _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1___default()(props, ["x", "y", "width", "height", "value", "index"]);
 
-      var initials = "";
-      var stateName = item[index].state;
-      var words = stateName.replace(/and /g, "").split(" ");
-      words.map(function (item, index) {
-        initials += item.substr(0, 1);
-      });
+      var initials = item[index].state_ab;
+      var stateName = item[index].state; // var words = stateName.replace(/and /g, "").split(" ");
+      // words.map((item, index)=>{
+      //     initials += item.substr(0,1)
+      // })
+
       var context = this;
       var texth = 25,
           textpadding = 5;
@@ -360,18 +360,19 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
           return context.mouseOut(event);
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("rect", {
-        width: "20",
-        height: "14",
+        width: "30",
+        height: "18",
+        rx: "8.5",
         fill: "white",
-        x: x - width,
+        x: x - width / 2,
         y: y + height / 2,
         stroke: customColor
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("text", {
         x: x + width / 2,
-        y: y + 8 + height / 2,
+        y: y + 10 + height / 2,
         color: customColor,
         stroke: customColor,
-        fontSize: "8px",
+        fontSize: "12px",
         strokeWidth: 1,
         textAnchor: "middle",
         fontWeight: 200,
@@ -394,7 +395,6 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
         transform: "translate(" + textpadding + "," + (textpadding * 2 + texth) + ")",
         x: x + 5 + width / 2,
         y: y - 70 + height / 2,
-        fontSize: "",
         color: "#fff",
         stroke: "black",
         strokeOpacity: "0.5",
@@ -474,22 +474,22 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
 
       var context = this;
       var legendTypes = [{
-        value: "RT 50%",
+        value: "CI 50%",
         type: "square",
         id: "0",
         color: "rgba(235, 83, 88, 0.8)"
       }, {
-        value: "RT 90%",
+        value: "CI 90%",
         type: "square",
         id: "1",
         color: "rgba(235, 83, 88, 0.5)"
       }, {
-        value: "RT 50%",
+        value: "CI 50%",
         type: "square",
         id: "2",
         color: "rgba(53, 179, 46, 0.8)"
       }, {
-        value: "RT 90%",
+        value: "CI 90%",
         type: "square",
         id: "3",
         color: "rgba(53, 179, 46, 0.5)"
@@ -504,8 +504,8 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
       }, this.state.data.length && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_9__["BarChart"], {
         width: this.state.barChartWidth,
         height: 350,
-        barGap: -6,
-        barSize: 6,
+        barGap: -14,
+        barSize: 14,
         data: this.state.data,
         margin: {
           top: 20,
@@ -524,8 +524,8 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
         tickLine: false
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_9__["YAxis"], {
         stroke: "rgba(0, 0, 0, 0.05)",
-        ticks: [-0.2, 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2.0, 2.4, 2.6, 2.8, 3.0, 3.2],
-        domain: [-0.5, 3.5],
+        ticks: [0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2.0, 2.4, 2.6, 2.8, 3.0, 3.2],
+        domain: [0, 3.5],
         minTickGap: 2,
         interval: 1,
         tick: {
@@ -556,14 +556,14 @@ var CountryChart = /*#__PURE__*/function (_React$Component) {
         },
         fill: "rgba(235, 83, 88, 0.5)",
         dataKey: "RT_90",
-        radius: [5, 5, 5, 5]
+        radius: [14, 14, 14, 14]
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_9__["Bar"], {
         shape: function shape(myProps) {
           return context.customBar(myProps, "50");
         },
         fill: "rgba(235, 83, 88, 0.8)",
         dataKey: "RT_50",
-        radius: [5, 5, 5, 5]
+        radius: [14, 14, 14, 14]
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_9__["LabelList"], {
         position: "center",
         dataKey: "RT",
@@ -749,7 +749,7 @@ var Footer = /*#__PURE__*/function (_React$Component) {
       }, "Nidhi Gupta"), "."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("span", null, "Site built by ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("a", {
         href: "https://www.linkedin.com/in/anurag-gupta690",
         target: "_blank"
-      }, "Anurag"), "."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("span", null, "Thanks to ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("a", {
+      }, "Anurag Gupta"), "."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("span", null, "Thanks to ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("a", {
         target: "_blank",
         href: "https://twitter.com/kevin"
       }, "Kevin Systrom"), " for his contributions for the US version - ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("a", {
@@ -799,6 +799,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _services_covidData__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../services/covidData */ "./frontend/services/covidData.js");
 
 
 
@@ -812,18 +813,36 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 
 
+
 var Header = /*#__PURE__*/function (_React$Component) {
   _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default()(Header, _React$Component);
 
   var _super = _createSuper(Header);
 
   function Header(props) {
+    var _this;
+
     _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, Header);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    _this.state = {
+      updationDate: ""
+    };
+    return _this;
   }
 
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(Header, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      Object(_services_covidData__WEBPACK_IMPORTED_MODULE_7__["getCovidUpdationDate"])().then(function (data) {
+        _this2.setState({
+          updationDate: data.updationDate
+        });
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var rtText = function rtText() {
@@ -846,7 +865,8 @@ var Header = /*#__PURE__*/function (_React$Component) {
           fontSize: '38px',
           fontWeight: '600',
           letterSpacing: '-0.5px',
-          marginBottom: '0.3em'
+          marginBottom: '0.3em',
+          marginTop: '0.3em'
         }
       }, rtText(), " Covid-19"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
         style: {
@@ -870,7 +890,7 @@ var Header = /*#__PURE__*/function (_React$Component) {
           fontSize: '12px',
           display: 'inline-block'
         }
-      }, "Data Last Updated: ", moment__WEBPACK_IMPORTED_MODULE_6___default()("2020-04-26").format("LL"))));
+      }, "Data Last Updated: ", moment__WEBPACK_IMPORTED_MODULE_6___default()(this.state.updationDate).format("LL"))));
     }
   }]);
 
@@ -1172,8 +1192,8 @@ var StateCharts = /*#__PURE__*/function (_React$Component) {
         fill: "black"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_7__["YAxis"], {
         type: "number",
-        ticks: [-0.5, 0, 1, 2.5, 3.5],
-        domain: [-0.5, 3.5],
+        ticks: [0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4, 2.6, 2.8, 3.0, 3.5],
+        domain: [0.2, 3.5],
         interval: "preserveStartEnd",
         minTickGap: 3,
         stroke: "rgba(0, 0, 0, 0.05)",
@@ -1283,13 +1303,14 @@ react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEB
 /*!****************************************!*\
   !*** ./frontend/services/covidData.js ***!
   \****************************************/
-/*! exports provided: getCovidStatesData, getCovidCountryData */
+/*! exports provided: getCovidStatesData, getCovidCountryData, getCovidUpdationDate */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCovidStatesData", function() { return getCovidStatesData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCovidCountryData", function() { return getCovidCountryData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCovidUpdationDate", function() { return getCovidUpdationDate; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/asyncToGenerator.js");
@@ -1354,6 +1375,36 @@ function _getCovidCountryData() {
     }, _callee2);
   }));
   return _getCovidCountryData.apply(this, arguments);
+}
+
+function getCovidUpdationDate() {
+  return _getCovidUpdationDate.apply(this, arguments);
+}
+
+function _getCovidUpdationDate() {
+  _getCovidUpdationDate = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            return _context3.abrupt("return", new Promise(function (resolve, reject) {
+              fetch('http://localhost:8080/api/rtcovid/updationDate').then(function (response) {
+                return response.json();
+              }).then(function (data) {
+                resolve(data);
+              })["catch"](function (err) {
+                reject(err);
+              });
+            }));
+
+          case 1:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+  return _getCovidUpdationDate.apply(this, arguments);
 }
 
 /***/ }),
