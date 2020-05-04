@@ -5,7 +5,7 @@ import { Router, Route, browserHistory } from 'react-router';
 
 ReactDOM.render( 
     <Router history = { browserHistory }>
-        <Route path = "/rtcovid.html" component = { App } />
+        <Route path = "/rtcovid" component = { App } />
     </Router> ,
     document.getElementById('app')
 );

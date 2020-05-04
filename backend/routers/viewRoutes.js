@@ -11,13 +11,13 @@ class Routes{
         router.get('*', function(req, res, next) {
             switch(req.path) {
                 case '/':
-                case '/rtcovid.html':
+                case '/rtcovid':
                     //call middleware
                     break;
             }
             next();
         });
-        router.get('/rtcovid.html', function(req, res) {
+        router.get('/rtcovid', function(req, res) {
             res.render('index');
         });
         return router;
