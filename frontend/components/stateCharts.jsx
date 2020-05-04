@@ -134,7 +134,7 @@ export default class StateCharts extends React.Component {
         return (
             <div style={{display: 'flex', flexWrap: 'wrap', alignItems: 'start', padding: '0% 7% 2% 7%'}}>
                 {(Object.keys(this.state.data)).map(function(item, index){
-                    if(item!=="India") return that.loadStatesGraph(item, index)
+                    return that.loadStatesGraph(item, index)
                 }
                 )}
             </div>

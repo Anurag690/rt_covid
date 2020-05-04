@@ -72,44 +72,40 @@ function getRTCovidCountryData() {
         var stateObject = {};
         async.forEachOfSeries(jsonArray, (item, index, callback)=>{
             var {state, date, ML, Low_90, Low_50, High_50, High_90, state_ab} = item;
-            if(state!=="India") {
-                
-                var colorBreakPoint = 1;
-                var colorBreakPointPercentage90 = `${(1 - ((colorBreakPoint - Low_90) / (High_90 - Low_90))) * 100}%`;
-                var colorBreakPointPercentage50 = `${(1 - ((colorBreakPoint - Low_50) / (High_50 - Low_50))) * 100}%`;
+               
+            var colorBreakPoint = 1;
+            var colorBreakPointPercentage90 = `${(1 - ((colorBreakPoint - Low_90) / (High_90 - Low_90))) * 100}%`;
+            var colorBreakPointPercentage50 = `${(1 - ((colorBreakPoint - Low_50) / (High_50 - Low_50))) * 100}%`;
 
-                if(stateObject[state]) {
-                    stateObject[state] = {
-                        state,
-                        date,
-                        RT: (+ML),
-                        RT_90: [(+Low_90), (+High_90)],
-                        RT_50: [(+Low_50), (+High_50)],
-                        Low_90: (+Low_90),
-                        High_90: (+High_90),
-                        colorBreakPointPercentage50,
-                        colorBreakPointPercentage90,
-                        state_ab
-                    };
-                    callback();
-                } else {
-                    stateObject[state] = [];
-
-                    stateObject[state] = {
-                        state,
-                        date,
-                        RT: (+ML),
-                        RT_90: [(+Low_90), (+High_90)],
-                        RT_50: [(+Low_50), (+High_50)],
-                        Low_90: (+Low_90),
-                        High_90: (+High_90),
-                        colorBreakPointPercentage50,
-                        colorBreakPointPercentage90,
-                        state_ab
-                    };
-                    callback();
-                }
+            if(stateObject[state]) {
+                stateObject[state] = {
+                    state,
+                    date,
+                    RT: (+ML),
+                    RT_90: [(+Low_90), (+High_90)],
+                    RT_50: [(+Low_50), (+High_50)],
+                    Low_90: (+Low_90),
+                    High_90: (+High_90),
+                    colorBreakPointPercentage50,
+                    colorBreakPointPercentage90,
+                    state_ab
+                };
+                callback();
             } else {
+                stateObject[state] = [];
+
+                stateObject[state] = {
+                    state,
+                    date,
+                    RT: (+ML),
+                    RT_90: [(+Low_90), (+High_90)],
+                    RT_50: [(+Low_50), (+High_50)],
+                    Low_90: (+Low_90),
+                    High_90: (+High_90),
+                    colorBreakPointPercentage50,
+                    colorBreakPointPercentage90,
+                    state_ab
+                };
                 callback();
             }
         }, err=>{

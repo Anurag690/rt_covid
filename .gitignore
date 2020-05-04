@@ -2,3 +2,4 @@ node_modules
 */node_modules/
 backend/public/bundles
 .vscode
+.node-persist
