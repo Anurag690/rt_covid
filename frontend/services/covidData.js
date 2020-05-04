@@ -1,6 +1,6 @@
 export async function getCovidStatesData() {
     return new Promise((resolve, reject) => {
-        fetch('http://localhost:8080/api/rtcovid/states')
+        fetch('/api/rtcovid/states')
         .then(response => response.json())
         .then(data => {
             resolve(data)
@@ -11,7 +11,7 @@ export async function getCovidStatesData() {
 
 export async function getCovidCountryData() {
     return new Promise((resolve, reject) => {
-        fetch('http://localhost:8080/api/rtcovid/country')
+        fetch('/api/rtcovid/country')
         .then(response => response.json())
         .then(data => {
             resolve(data)
@@ -22,7 +22,7 @@ export async function getCovidCountryData() {
 
 export async function getCovidUpdationDate() {
     return new Promise((resolve, reject) => {
-        fetch('http://localhost:8080/api/rtcovid/updationDate')
+        fetch('/api/rtcovid/updationDate')
         .then(response => response.json())
         .then(data => {
             resolve(data)
