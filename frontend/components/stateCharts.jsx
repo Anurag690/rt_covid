@@ -27,9 +27,13 @@ export default class StateCharts extends React.Component {
     }
     loadStatesGraph(item, index) {
         let context = this;
+        let lastRT = (+context.state.data[item].item[context.state.data[item].item.length-1].RT).toFixed(2)
         return(
-            <div id={""+item} onClick={(event)=>event.preventDefault()} width="100%" style={{display: 'flex', flexDirection: 'column', alignItems: 'start', marginTop: '1%', marginBottom: '1%', color: 'rgba(0,0,0,0.85)', flex: '1 0 20%'}}>
-                <div style={{fontWeight: 'bold', marginBottom: '1%'}}>{item}</div>
+            <div id={""+item} onClick={(event)=>event.preventDefault()} width="100%" style={{display: 'flex', flexDirection: 'column', alignItems: 'start', marginTop: '1%', marginBottom: '1%', color: 'rgba(0,0,0,0.85)'}}>
+                <div style={{display: 'flex', justifyContent: 'space-between', minWidth: '77%'}}>
+                    <div style={{fontWeight: 'bold', marginBottom: '1%'}}>{item}</div>
+                    <div style={{fontWeight: 'bold', marginBottom: '1%', color: lastRT<1?"rgba(53, 179, 46, 1)":"rgba(235, 83, 88, 1)"}}>{lastRT}</div>
+                </div>
                 <ComposedChart
                 width={400}
                 height={250}
