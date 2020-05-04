@@ -46,7 +46,7 @@ var config = {
     }),
   ], 
   optimization: {
-    minimize: false,
+    minimize: true,
     splitChunks: {
         chunks: 'async',
         minSize: 1000,
