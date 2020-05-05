@@ -6,7 +6,8 @@ export default class Header extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            updationDate: ""
+            updationDate: "",
+            readMore: false
         }
     }
     componentDidMount() {
@@ -14,6 +15,11 @@ export default class Header extends React.Component{
             this.setState({
                 updationDate: data.updationDate
             })
+        })
+    }
+    handleReadMore() {
+        this.setState( {
+            readMore: !this.state.readMore
         })
     }
     render() {
@@ -40,11 +46,14 @@ export default class Header extends React.Component{
                 <div style={{
                     color: 'rgba(0,0,0,0.65)', 
                     lineHeight: 1.5715, 
-                    maxWidth: '70%', 
+                    maxWidth: '75%', 
                     fontSize: '14px',
                     marginBottom: '1%'
                 }}>
-                    These are up-to-date values for {rtText()}, a key measure of how fast the virus is growing. It’s the average number of people who become infected by an infectious person. If {rtText()} is above 1.0, the virus will spread quickly. When {rtText()} is below 1.0, the virus will stop spreading. You can learn more about it on the {rtText()} Live website. You can learn more about it on the <a target="_blank" href="https://rt.live">rt.live</a> website.
+                    <div style={{marginBottom: '1em'}}>These are up-to-date values for {rtText()}, a key measure of how fast the virus is growing. {rtText()}, effective reproductive number — is the virus’s actual transmission rate at a given moment. <a onClick={()=>this.handleReadMore()} style={{cursor: 'pointer', textDecoration: 'underline'}}>Learn More</a>. <br/></div>
+                    {this.state.readMore && <div style={{marginBottom: '1em'}}>An {rtText()} of 1 means that the epidemic is holding steady: For every person who is infected, another one becomes infected, and as the first one either recovers or dies, the second one replaces it; the size of the total pool of infected people remains the same. At a rate below 1, the epidemic will fade out. If it is above 1, it will grow, perhaps exponentially. <br/>
+                    After achieving a sustained decline in the {rtText()} and bringing the number of daily new cases down to an acceptable baseline with the help of physical distancing, a state can consider relaxing some measures.<br/></div>}
+                    <div style={{marginBottom: '1em'}}>{rtText()} varies according to the measures to control the epidemic — quarantine and isolation protocols, travel restrictions, school closures, physical distancing, the use of face masks — that have been put in place. Further enhancements in the model using more data at the state level is coming soon.<br/></div>
                 </div>
                 <div>
                     <div style={{
