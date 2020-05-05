@@ -2,7 +2,7 @@ var path = require('path');
 const webpack = require('webpack');
 
 var config = {
-    mode: 'development',
+    mode: 'production',
     devtool : 'source-map',
     entry: './frontend/main.js',
     output: {
@@ -42,11 +42,11 @@ var config = {
     },
     plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify("development")
+      'process.env.NODE_ENV': JSON.stringify("production")
     }),
   ], 
   optimization: {
-    minimize: false,
+    minimize: true,
     splitChunks: {
         chunks: 'async',
         minSize: 1000,
