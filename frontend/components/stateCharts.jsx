@@ -29,7 +29,7 @@ export default class StateCharts extends React.Component {
         let context = this;
         let lastRT = (+context.state.data[item].item[context.state.data[item].item.length-1].RT).toFixed(2)
         return(
-            <div id={""+item} onClick={(event)=>event.preventDefault()} width="100%" style={{display: 'flex', flexDirection: 'column', alignItems: 'start', marginTop: '1%', marginBottom: '1%', color: 'rgba(0,0,0,0.85)'}}>
+            <div key={index} id={""+item} onClick={(event)=>event.preventDefault()} width="100%" style={{display: 'flex', flexDirection: 'column', alignItems: 'start', marginTop: '1%', marginBottom: '1%', color: 'rgba(0,0,0,0.85)'}}>
                 <div style={{display: 'flex', justifyContent: 'space-between', minWidth: '77%'}}>
                     <div style={{fontWeight: 'bold', marginBottom: '1%'}}>{item}</div>
                     <div style={{fontWeight: 'bold', marginBottom: '1%', color: lastRT<1?"rgba(53, 179, 46, 1)":"rgba(235, 83, 88, 1)"}}>{lastRT}</div>
@@ -102,17 +102,17 @@ export default class StateCharts extends React.Component {
                         fillOpacity={1}
                         strokeOpacity={1}
                         floodOpacity={1}
-                        isFront="true"
-                        strokeDasharray={0}
+                        isFront={true}
+                        // strokeDasharray="0"
                     />
                     <ReferenceLine y={1} 
                         textRendering="geometricPrecision" 
                         stroke="rgba(0, 0, 0, 0.3)" 
                         opacity="1" 
-                        isFront="true"
+                        isFront={true}
                         fillOpacity={1}
                         strokeOpacity={1}
-                        alwaysShow={true}
+                        ifOverflow="extendDomain"
                     />
                     <Area 
                         type="monotone" 

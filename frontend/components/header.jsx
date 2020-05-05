@@ -34,7 +34,7 @@ export default class Header extends React.Component{
                 alignItems: 'left',
                 justifyContent: 'left'
             }}>
-                <h1 class="ant-typography" style={{
+                <h1 className="ant-typography" style={{
                     fontSize: '38px', 
                     fontWeight: '600', 
                     letterSpacing: '-0.5px', 

@@ -6,10 +6,10 @@ export default class CustomTooltip extends React.Component{
         super(props);
     }
     render() {
-        const { active, payload, label, myLabelType, ...rest } = this.props;
+        const { active, payload, label, myLabelType, index, ...rest } = this.props;
         return(
             <div>
-                {active && <div className="custom-tooltip" 
+                {active && <div key={index} className="custom-tooltip" 
                 style={{display: 'flex', flexDirection: 'column', background: '#f0f0f0',
                         opacity: '0.4',
                         color: '#222831',

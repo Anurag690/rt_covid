@@ -45,14 +45,14 @@ function getRTCovidStatesData() {
                         max: (dataPoint.High_90 > result.max || result.max === 0) ? dataPoint.High_90 : result.max,
                     }), { min: 0, max: 0 }
                 );
-                var colorBreakPointPercentage90 = `${(1 - ((colorBreakPoint - min) / (max - min))) * 100}%`;
+                var colorBreakPointPercentage90 = (max-min)?`${(1 - ((colorBreakPoint - min) / (max - min))) * 100}%`:min<1?0:100;
 
                 var { min, max } = stateObject[item].reduce((result, dataPoint) => ({
                         min: (dataPoint.RT < result.min || result.min === 0) ? dataPoint.RT : result.min,
                         max: (dataPoint.RT > result.max || result.max === 0) ? dataPoint.RT : result.max,
                     }), { min: 0, max: 0 }
                 );
-                var colorBreakPointPercentageML = `${(1 - ((colorBreakPoint - min) / (max - min))) * 100}%`;
+                var colorBreakPointPercentageML = (max-min)?`${(1 - ((colorBreakPoint - min) / (max - min))) * 100}%`:min<1?0:100;
                 
                 var newObject = Object.assign({}, {item: stateObject[item], colorBreakPointPercentage90, colorBreakPointPercentageML})
                 newStateObject[item] = {}

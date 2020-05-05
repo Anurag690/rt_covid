@@ -94,10 +94,21 @@ export default class CountryChart extends React.Component {
         if((+value)>1) {
             customColor = "rgba(235, 83, 88, 0.5)"
         }
+        let rect_x = x-width/2
+        let rect_y = y+height/2
+        let text_x = x + width / 2
+        let text_y = y+10+height/2
+        // console.log(initials, "rect_y", rect_y)
+        // console.log(initials, "y", y)
+        // console.log(initials, "height", height)
+        if(initials=="TR") {
+            rect_y = rect_y - 12
+            text_y = text_y - 12
+        }
         return (
           <g style={{cursor: 'pointer'}} className="myTooltip" onClick={(event)=>context.handleCustomCircleClick(event, stateName)} onMouseEnter={(event)=>context.mouseOver(event)} onMouseLeave={(event)=>context.mouseOut(event)}>
-            <rect width="30" height="18" rx="8.5" fill="white" x={x-width/2} y={y+height/2} stroke={customColor}></rect>
-            <text x={x + width / 2} y={y+10+height/2} color={customColor} stroke={customColor} fontSize="12px" strokeWidth={1} textAnchor="middle" fontWeight={200} dominantBaseline="middle" onMouseEnter={(event)=>context.mouseOut(event)} onMouseLeave={(event)=>context.mouseOut(event)}>
+            <rect width="30" height="18" rx="8.5" fill="white" x={rect_x} y={rect_y} stroke={customColor}></rect>
+            <text x={text_x} y={text_y} color={customColor} stroke={customColor} fontSize="12px" strokeWidth={1} textAnchor="middle" fontWeight={200} dominantBaseline="middle" onMouseEnter={(event)=>context.mouseOut(event)} onMouseLeave={(event)=>context.mouseOut(event)}>
               {initials}
             </text>
             <g className="myTooltipText" x={x + width / 2} y={y+height/2} fill="white" stroke="yellow" opacity="1" >
