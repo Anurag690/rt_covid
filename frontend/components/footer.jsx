@@ -24,6 +24,7 @@ export default class Footer extends React.Component{
                 </span>
                 <span>Data analysis and Model development by <a target="_blank" href="https://www.linkedin.com/in/nidhigupta1154">Nidhi Gupta</a>.</span>
                 <span>Site built by <a href="https://www.linkedin.com/in/anurag-gupta690" target="_blank">Anurag Gupta</a>.</span>
+                <span>Statewise daily data used from <a target="_blank" href="https://covid19india.org">covid19india.org</a>.</span>
                 <span>Visualizations built using <a target="_blank" href="https://recharts.org/">Recharts</a>; site built using <a target="_blank" href="https://nodejs.org/">Node.js</a> and <a target="_blank" href="https://reactjs.org/">React.js</a>.</span>
             </div>
         );
