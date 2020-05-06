@@ -21,7 +21,14 @@ class Routes{
             res.redirect("/rtcovid");
         })
         router.get('/rtcovid', function(req, res) {
-            res.render('index');
+            var metaData = {
+                title: "Rt Covid",
+                description: "",
+                canonical: "http://www.nidhigupta.live/rtcovid"
+            }
+            res.render('index', {
+                metaData
+            });
         });
         return router;
     }

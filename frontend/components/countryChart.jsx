@@ -101,10 +101,10 @@ export default class CountryChart extends React.Component {
         // console.log(initials, "rect_y", rect_y)
         // console.log(initials, "y", y)
         // console.log(initials, "height", height)
-        if(initials=="TR") {
-            rect_y = rect_y - 12
-            text_y = text_y - 12
-        }
+        // if(initials=="TR") {
+        //     rect_y = rect_y - 12
+        //     text_y = text_y - 12
+        // }
         return (
           <g style={{cursor: 'pointer'}} className="myTooltip" onClick={(event)=>context.handleCustomCircleClick(event, stateName)} onMouseEnter={(event)=>context.mouseOver(event)} onMouseLeave={(event)=>context.mouseOut(event)}>
             <rect width="30" height="18" rx="8.5" fill="white" x={rect_x} y={rect_y} stroke={customColor}></rect>
@@ -112,7 +112,7 @@ export default class CountryChart extends React.Component {
               {initials}
             </text>
             <g className="myTooltipText" x={x + width / 2} y={y+height/2} fill="white" stroke="yellow" opacity="1" >
-                <text fill="gray" transform={"translate("+textpadding+","+(textpadding*2+texth)+")"} x={x + 5 + width / 2} y={y-70+height/2} color="#fff" stroke="black" strokeOpacity="0.5" opacity="0.5" strokeWidth={1} textAnchor="middle" dominantBaseline="middle">{stateName + " : " +(value).toFixed(2)}</text>
+                <text fill="gray" transform={"translate("+textpadding+","+(textpadding*2+texth)+")"} x={x - 5 + width / 2} y={y-80+height/2} color="#fff" stroke="black" strokeOpacity="0.5" opacity="0.5" strokeWidth={1} textAnchor="middle" dominantBaseline="middle">{stateName + " : " +(value).toFixed(2)}</text>
             </g>
           </g>
         );
