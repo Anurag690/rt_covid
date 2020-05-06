@@ -17,6 +17,9 @@ class Routes{
             }
             next();
         });
+        router.get('/', function(req, res) {
+            res.redirect("/rtcovid");
+        })
         router.get('/rtcovid', function(req, res) {
             res.render('index');
         });
