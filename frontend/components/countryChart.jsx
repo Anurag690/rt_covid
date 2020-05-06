@@ -11,17 +11,13 @@ export default class CountryChart extends React.Component {
         super(props);
         this.state = {
             data: [],
-            customLabelHovered: false,
-            barChartWidth: 1350,
-            initialWindowWidth: 0
+            customLabelHovered: false
         }
         this.scrollTo = this.scrollTo.bind(this);
         this.handleBarClick = this.handleBarClick.bind(this);
         this.renderCustomizedLabel = this.renderCustomizedLabel.bind(this);
         this.handleCustomCircleClick = this.handleCustomCircleClick.bind(this);
         this.renderDefs = this.renderDefs.bind(this);
-        this.onWindowResize = this.onWindowResize.bind(this);
-        this.getWindowWidth = this.getWindowWidth.bind(this);
     }
     componentDidMount() {
         getCovidCountryData().then((data)=>{
@@ -31,32 +27,6 @@ export default class CountryChart extends React.Component {
         }).catch(err=>{
             console.log(err);
         })
-        this.onWindowResize();
-        window.addEventListener("resize", this.onWindowResize);
-    }
-    componentWillUnmount() {
-        window.removeEventListener("resize", this.onWindowResize);
-    }
-    getWindowWidth() {
-        return Math.max(
-          document.documentElement.clientWidth,
-          window.innerWidth || 0
-        );
-    }
-    onWindowResize() {
-        let windowSize = this.getWindowWidth();
-        if(!this.state.initialWindowWidth) {
-            this.setState({
-                initialWindowWidth: windowSize,
-                barChartWidth: windowSize<764?764-90 : windowSize-90
-            })
-        }
-        if(this.state.initialWindowWidth) {
-            let percentDiminished =  (windowSize / this.state.initialWindowWidth)*100;
-            this.setState({
-                barChartWidth: windowSize<764?764-90 :(this.state.initialWindowWidth - 90)*percentDiminished/100
-            })
-        }
     }
     scrollTo(ref) {
         setTimeout(function() {
@@ -171,6 +141,7 @@ export default class CountryChart extends React.Component {
                 color: "rgba(53, 179, 46, 0.5)"
             }
         ]
+        console.log(this.props.barChartWidth)
         return (
             <div style={{
                 display: 'flex', 
@@ -178,7 +149,7 @@ export default class CountryChart extends React.Component {
                 padding: '0% 1.5% 0%', 
                 justifyContent: 'left'
             }}>
-                {this.state.data.length && <BarChart width={this.state.barChartWidth} height={350} barGap={-14} barSize={14} data={this.state.data} margin={{ top: 20, right: 60, bottom: 0, left: 20 }} onClick={this.handleBarClick}>
+                {this.state.data.length && <BarChart width={this.props.barChartWidth} height={350} barGap={-14} barSize={14} data={this.state.data} margin={{ top: 20, right: 60, bottom: 0, left: 20 }} onClick={this.handleBarClick}>
                     
                         {this.renderDefs()}
                     <XAxis 

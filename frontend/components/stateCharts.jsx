@@ -35,7 +35,7 @@ export default class StateCharts extends React.Component {
                     <div style={{fontWeight: 'bold', marginBottom: '1%', color: lastRT<1?"rgba(53, 179, 46, 1)":"rgba(235, 83, 88, 1)"}}>{lastRT}</div>
                 </div>
                 <ComposedChart
-                width={400}
+                width={this.props.stateChartWidth}
                 height={250}
                 data={this.state.data[item].item}
                 margin={{ top: 10, right: 30, left: -15, bottom: 10 }}
