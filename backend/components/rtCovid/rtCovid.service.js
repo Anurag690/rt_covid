@@ -10,27 +10,31 @@ function getRTCovidStatesData() {
         const jsonArray = await csvToJson().fromFile(csvFilePath);
         var stateObject = {};
         async.forEachOfSeries(jsonArray, (item, key, callback)=>{
-            var {state, date, ML, Low_90, High_90, Low_50, High_50} = item;
-            if(stateObject[state]) {
-                stateObject[state].push({
-                    date,
-                    RT: (+ML),
-                    RT_90: [(+Low_90), (+High_90)],
-                    RT_50: [(+Low_50), (+High_50)],
-                    Low_90: (+Low_90),
-                    High_90: (+High_90)
-                });
-                callback();
-            } else {
-                stateObject[state] = [];
-                stateObject[state].push({
-                    date,
-                    RT: (+ML),
-                    RT_90: [(+Low_90), (+High_90)],
-                    RT_50: [(+Low_50), (+High_50)],
-                    Low_90: (+Low_90),
-                    High_90: (+High_90)
-                });
+            var {state, date, ML, Low_90, High_90, Low_50, High_50, state_ab} = item;
+            if(state_ab!="HP") {
+                if(stateObject[state]) {
+                    stateObject[state].push({
+                        date,
+                        RT: (+ML),
+                        RT_90: [(+Low_90), (+High_90)],
+                        RT_50: [(+Low_50), (+High_50)],
+                        Low_90: (+Low_90),
+                        High_90: (+High_90)
+                    });
+                    callback();
+                } else {
+                    stateObject[state] = [];
+                    stateObject[state].push({
+                        date,
+                        RT: (+ML),
+                        RT_90: [(+Low_90), (+High_90)],
+                        RT_50: [(+Low_50), (+High_50)],
+                        Low_90: (+Low_90),
+                        High_90: (+High_90)
+                    });
+                    callback();
+                }
+            } else{
                 callback();
             }
         }, (error)=>{
@@ -72,8 +76,8 @@ function getRTCovidCountryData() {
         var stateObject = {};
         async.forEachOfSeries(jsonArray, (item, index, callback)=>{
             var {state, date, ML, Low_90, Low_50, High_50, High_90, state_ab} = item;
-               
-            var colorBreakPoint = 1;
+            if(state_ab!="HP"){
+                var colorBreakPoint = 1;
             var colorBreakPointPercentage90 = `${(1 - ((colorBreakPoint - Low_90) / (High_90 - Low_90))) * 100}%`;
             var colorBreakPointPercentage50 = `${(1 - ((colorBreakPoint - Low_50) / (High_50 - Low_50))) * 100}%`;
 
@@ -108,6 +112,10 @@ function getRTCovidCountryData() {
                 };
                 callback();
             }
+            }else{
+                callback();
+            }
+            
         }, err=>{
             let resultArray = Object.values(stateObject);
             resultArray = resultArray.sort(function(a,b){return a.RT - b.RT})
