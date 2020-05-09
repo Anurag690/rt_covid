@@ -61,7 +61,9 @@ async function Ctrl_NewCasesData(req, res) {
         res.send(result);
     }catch(e) {
         console.log(e);
-        res.send("Something went wrong!")
+        res.send({
+            error: "Something went wrong!"
+        })
     }
 }
 

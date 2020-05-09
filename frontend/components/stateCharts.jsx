@@ -16,7 +16,8 @@ export default class StateCharts extends React.Component {
             data: [],
             newCasesData: [],
             strokeColor: 'red',
-            showNewCases: {}
+            showNewCases: {},
+            showNewCaseChartFlag: true
         }
     }
     componentDidMount() {
@@ -25,9 +26,16 @@ export default class StateCharts extends React.Component {
                 data
             }, ()=>{
                 getNewCasesData().then((data)=>{
-                    this.setState({
-                        newCasesData: data
-                    })
+                    if(!data.error) {
+                        this.setState({
+                            newCasesData: data,
+                            showNewCaseChartFlag: true
+                        })
+                    } else {
+                        this.setState({
+                            showNewCaseChartFlag: false
+                        })
+                    }
                 })
             })
         }).catch(err=>{
@@ -51,10 +59,10 @@ export default class StateCharts extends React.Component {
         let lastRT = (+context.state.data[item].item[context.state.data[item].item.length-1].RT).toFixed(2)
         return(
             <div key={index} id={""+item} onClick={(event)=>event.preventDefault()} width="100%" style={{display: 'flex', flexDirection: 'column', alignItems: 'start', marginTop: '1%', marginBottom: '1%', color: 'rgba(0,0,0,0.85)'}}>
-                <div style={{display: 'flex', justifyContent: 'space-between', minWidth: '77%'}}>
+                <div style={{display: 'flex', justifyContent: 'space-between', minWidth: '77%', alignItems: 'center'}}>
                     <div style={{fontWeight: 'bold', marginBottom: '1%'}}>
                         <div>{item}</div>
-                        <div className="showNewCaseText" onClick={()=>this.toggleNewCases(item)}>{!this.state.showNewCases[item]?<div>show new cases</div>:<div>hide new cases</div>}</div>
+                        {this.state.showNewCaseChartFlag&&<div className="showNewCaseText" onClick={()=>this.toggleNewCases(item)}>{!this.state.showNewCases[item]?<div>show new cases</div>:<div>hide new cases</div>}</div>}
                     </div>
                     <div style={{fontWeight: 'bold', marginBottom: '1%', color: lastRT<1?"rgba(53, 179, 46, 1)":"rgba(235, 83, 88, 1)"}}>{lastRT}</div>
                 </div>
@@ -151,7 +159,7 @@ export default class StateCharts extends React.Component {
                         // strokeWidth={1.5}
                     />
                 </ComposedChart></div>
-                {this.state.showNewCases[item] && <NewCasesChart data={this.state.newCasesData[item]} />}
+                {this.state.showNewCaseChartFlag && this.state.showNewCases[item] && <NewCasesChart data={this.state.newCasesData[item]} />}
                 
             </div>
         )

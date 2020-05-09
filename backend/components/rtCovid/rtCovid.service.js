@@ -124,27 +124,31 @@ function getRTCovidCountryData() {
 }
 function getNewCasesData() {
     return new Promise(async(resolve, reject)=>{
-        await storage.init();
-        let updationDate = await storage.getItem('updationDate');
-        updationDate = updationDate.split("T")[0].substr(5,10).replace(/-/g,"")
-        const csvFilePath = path.resolve('./newcases/new_cases_'+updationDate+".csv")
-        const jsonArray = await csvToJson().fromFile(csvFilePath);
-        var stateObject = {};
-        async.forEachOfSeries(jsonArray, (item, key, callback)=>{
-            let {date, new_cases, smoothed_9d} = item;
-            if(stateObject[item.state]) {
-                stateObject[item.state].push({
-                    date,
-                    new_cases: (+new_cases),
-                    smoothed_9d: (+smoothed_9d)
-                });
-            } else {
-                stateObject[item.state] = [];
-            }
-            callback();
-        }, (err)=>{
-            resolve(stateObject)
-        })
+        try{
+            await storage.init();
+            let updationDate = await storage.getItem('updationDate');
+            updationDate = updationDate.split("T")[0].substr(5,10).replace(/-/g,"")
+            const csvFilePath = path.resolve('./newcases/new_cases_'+updationDate+".csv")
+            const jsonArray = await csvToJson().fromFile(csvFilePath);
+            var stateObject = {};
+            async.forEachOfSeries(jsonArray, (item, key, callback)=>{
+                let {date, new_cases, smoothed_9d} = item;
+                if(stateObject[item.state]) {
+                    stateObject[item.state].push({
+                        date,
+                        new_cases: (+new_cases),
+                        smoothed_9d: (+smoothed_9d)
+                    });
+                } else {
+                    stateObject[item.state] = [];
+                }
+                callback();
+            }, (err)=>{
+                resolve(stateObject)
+            })
+        }catch(err) {
+            reject(err);
+        }
     })
 }
 module.exports = {
