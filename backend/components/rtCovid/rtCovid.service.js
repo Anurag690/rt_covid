@@ -3,10 +3,12 @@ var path = require('path');
 var async = require('async');
 var storage = require('node-persist');
 
-const FILE_NAME = "data_rt.csv"
-
 function getRTCovidStatesData() {
     return new Promise(async (resolve, reject)=>{
+        await storage.init();
+        let updationDate = await storage.getItem('updationDate');
+        updationDate = updationDate.split("T")[0].substr(5,10).replace(/-/g,"");
+        const FILE_NAME = "data_rt_"+updationDate+".csv";
         const csvFilePath = path.resolve('./'+FILE_NAME)
         const jsonArray = await csvToJson().fromFile(csvFilePath);
         var stateObject = {};
@@ -69,9 +71,13 @@ function getRTCovidStatesData() {
 }
 function getRTCovidCountryData() {
     return new Promise(async (resolve, reject)=>{
+        await storage.init();
+        let updationDate = await storage.getItem('updationDate');
+        updationDate = updationDate.split("T")[0].substr(5,10).replace(/-/g,"");
+        const FILE_NAME = "data_rt_"+updationDate+".csv";
         const csvFilePath = path.resolve('./'+FILE_NAME);
+        
         const jsonArray = await csvToJson().fromFile(csvFilePath);
-        var newArray = [];
         var stateObject = {};
         async.forEachOfSeries(jsonArray, (item, index, callback)=>{
             var {state, date, ML, Low_90, Low_50, High_50, High_90, state_ab} = item;
