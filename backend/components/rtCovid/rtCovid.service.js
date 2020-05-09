@@ -1,6 +1,7 @@
 var csvToJson = require('csvtojson');
 var path = require('path');
 var async = require('async');
+var storage = require('node-persist');
 
 const FILE_NAME = "data_rt.csv"
 
@@ -38,8 +39,6 @@ function getRTCovidStatesData() {
                 callback();
             }
         }, (error)=>{
-            // console.log(stateObject);
-            // resolve(stateObject);
             var newStateObject = {}
             async.forEachOfSeries(Object.keys(stateObject), (item, key, callback)=>{
                 var colorBreakPoint = 1;
@@ -123,7 +122,33 @@ function getRTCovidCountryData() {
         })
     })
 }
+function getNewCasesData() {
+    return new Promise(async(resolve, reject)=>{
+        await storage.init();
+        let updationDate = await storage.getItem('updationDate');
+        updationDate = updationDate.split("T")[0].substr(5,10).replace(/-/g,"")
+        const csvFilePath = path.resolve('./newcases/new_cases_'+updationDate+".csv")
+        const jsonArray = await csvToJson().fromFile(csvFilePath);
+        var stateObject = {};
+        async.forEachOfSeries(jsonArray, (item, key, callback)=>{
+            let {date, new_cases, smoothed_9d} = item;
+            if(stateObject[item.state]) {
+                stateObject[item.state].push({
+                    date,
+                    new_cases: (+new_cases),
+                    smoothed_9d: (+smoothed_9d)
+                });
+            } else {
+                stateObject[item.state] = [];
+            }
+            callback();
+        }, (err)=>{
+            resolve(stateObject)
+        })
+    })
+}
 module.exports = {
     getRTCovidCountryData,
-    getRTCovidStatesData
+    getRTCovidStatesData,
+    getNewCasesData
 };

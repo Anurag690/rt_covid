@@ -1,0 +1,19 @@
+.showNewCaseText{
+    color: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+.showNewCaseText:hover{
+    color: rgba(0, 0, 0, 0.8);
+    text-decoration: underline;
+    cursor: pointer;
+}
+.newCasesChartBase{
+    position: absolute;
+    margin-top: 47px;
+}
+.stateComposedBase {
+    opacity: 1;
+}
+.stateComposedNewCase {
+    opacity: 0.2;
+}

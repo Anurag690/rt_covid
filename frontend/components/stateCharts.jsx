@@ -4,8 +4,9 @@ import {
     Tooltip, CartesianGrid, Area, ComposedChart
 } from 'recharts';
 
-import {getCovidStatesData} from '../services/covidData';
+import {getCovidStatesData, getNewCasesData} from '../services/covidData';
 import CustomTooltip from './customTooltip';
+import NewCasesChart from './newCasesChart'
 import moment from 'moment';
 
 export default class StateCharts extends React.Component {
@@ -13,17 +14,37 @@ export default class StateCharts extends React.Component {
         super(props);
         this.state = {
             data: [],
-            strokeColor: 'red'
+            newCasesData: [],
+            strokeColor: 'red',
+            showNewCases: {}
         }
     }
     componentDidMount() {
         getCovidStatesData().then((data)=>{
             this.setState({
                 data
+            }, ()=>{
+                getNewCasesData().then((data)=>{
+                    this.setState({
+                        newCasesData: data
+                    })
+                })
             })
         }).catch(err=>{
-            console.log(err);
+            
         })
+    }
+    toggleNewCases(stateName) {
+        let flag = this.state.showNewCases[stateName];
+
+        let stateNewCase = {};
+        stateNewCase[stateName] = !flag;
+
+        let newShowNewCase = Object.assign({}, this.state.showNewCases, stateNewCase);
+
+        this.setState({
+            showNewCases: newShowNewCase
+        });
     }
     loadStatesGraph(item, index) {
         let context = this;
@@ -31,9 +52,13 @@ export default class StateCharts extends React.Component {
         return(
             <div key={index} id={""+item} onClick={(event)=>event.preventDefault()} width="100%" style={{display: 'flex', flexDirection: 'column', alignItems: 'start', marginTop: '1%', marginBottom: '1%', color: 'rgba(0,0,0,0.85)'}}>
                 <div style={{display: 'flex', justifyContent: 'space-between', minWidth: '77%'}}>
-                    <div style={{fontWeight: 'bold', marginBottom: '1%'}}>{item}</div>
+                    <div style={{fontWeight: 'bold', marginBottom: '1%'}}>
+                        <div>{item}</div>
+                        <div className="showNewCaseText" onClick={()=>this.toggleNewCases(item)}>{!this.state.showNewCases[item]?<div>show new cases</div>:<div>hide new cases</div>}</div>
+                    </div>
                     <div style={{fontWeight: 'bold', marginBottom: '1%', color: lastRT<1?"rgba(53, 179, 46, 1)":"rgba(235, 83, 88, 1)"}}>{lastRT}</div>
                 </div>
+                <div className={!this.state.showNewCases[item]?"stateComposedBase":"stateComposedNewCase"}>
                 <ComposedChart
                 width={400}
                 height={250}
@@ -64,7 +89,7 @@ export default class StateCharts extends React.Component {
                         interval="preserveStartEnd" 
                         tickCount={1} 
                         tickFormatter={(tickItem)=>moment(tickItem).format('D/M')} 
-                        tick={{fill: 'rgba(0, 0, 0, 0.4)', fontSize: '12px' }} 
+                        tick={!this.state.showNewCases[item]?{fill: 'rgba(0, 0, 0, 0.4)', fontSize: '12px' }:false} 
                         tickLine={false} 
                         stroke="rgba(0, 0, 0, 0.05)"
                         fill="black"
@@ -76,7 +101,7 @@ export default class StateCharts extends React.Component {
                         interval="preserveStartEnd"
                         minTickGap={3} 
                         stroke="rgba(0, 0, 0, 0.05)"
-                        tick={{fill: 'rgba(0, 0, 0, 0.4)', fontSize: '12px' }} 
+                        tick={!this.state.showNewCases[item]?{fill: 'rgba(0, 0, 0, 0.4)', fontSize: '12px' }:false} 
                         tickLine={false} 
                         orientation="right"
                         allowDataOverflow={true}
@@ -125,7 +150,9 @@ export default class StateCharts extends React.Component {
                         // fillOpacity={0.8}
                         // strokeWidth={1.5}
                     />
-                </ComposedChart>
+                </ComposedChart></div>
+                {this.state.showNewCases[item] && <NewCasesChart data={this.state.newCasesData[item]} />}
+                
             </div>
         )
     }

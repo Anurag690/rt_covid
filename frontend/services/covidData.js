@@ -30,3 +30,14 @@ export async function getCovidUpdationDate() {
         .catch(err=>{reject(err)})
     })
 }
+
+export async function getNewCasesData() {
+    return new Promise((resolve, reject) => {
+        fetch('/api/rtcovid/newcases')
+        .then(response => response.json())
+        .then(data => {
+            resolve(data)
+        })
+        .catch(err=>{reject(err)})
+    })
+}

@@ -5,7 +5,8 @@ var {
     Ctrl_RTCovidCountryData, 
     Ctrl_RTCovidStatesData, 
     Ctrl_RTCovidDataFile, 
-    Ctrl_RTCovidDataUpdationDate
+    Ctrl_RTCovidDataUpdationDate,
+    Ctrl_NewCasesData
 } = require('./rtCovid.controller');
 
 class RTCovidRoutes{
@@ -17,6 +18,7 @@ class RTCovidRoutes{
         router.get('/country', Ctrl_RTCovidCountryData);
         router.post('/rt_data', Ctrl_RTCovidDataFile);
         router.get('/updationDate', Ctrl_RTCovidDataUpdationDate);
+        router.get('/newcases', Ctrl_NewCasesData);
         return router;
     }
 }

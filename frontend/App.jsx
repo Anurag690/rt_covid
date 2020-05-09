@@ -4,6 +4,7 @@ import StateCharts from './components/stateCharts';
 import ScrollToTop from './components/scrollToTop';
 import Footer from './components/footer';
 import Header from './components/header';
+import './app.css';
 
 export default class App extends React.PureComponent{
     constructor(props) {
