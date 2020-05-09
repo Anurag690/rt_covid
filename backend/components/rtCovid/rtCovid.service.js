@@ -128,7 +128,7 @@ function getNewCasesData() {
             await storage.init();
             let updationDate = await storage.getItem('updationDate');
             updationDate = updationDate.split("T")[0].substr(5,10).replace(/-/g,"")
-            const csvFilePath = path.resolve('./newcases/new_cases_'+updationDate+".csv")
+            const csvFilePath = path.resolve('./new_cases_'+updationDate+".csv")
             const jsonArray = await csvToJson().fromFile(csvFilePath);
             var stateObject = {};
             async.forEachOfSeries(jsonArray, (item, key, callback)=>{

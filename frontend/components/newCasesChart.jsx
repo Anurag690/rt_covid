@@ -46,7 +46,7 @@ export default class NewCasesChart extends React.Component {
                         allowDataOverflow={true}
                     />
                     <Tooltip 
-                        content={<CustomTooltip {...this.props} myOpacity={0.6} myLabelType="date"/>}
+                        content={<CustomTooltip {...this.props} myOpacity={0.6} myToFixed={0} myLabelType="date"/>}
                     ></Tooltip>
                     <CartesianGrid 
                         stroke="rgba(0, 0, 0, 0.05)" 

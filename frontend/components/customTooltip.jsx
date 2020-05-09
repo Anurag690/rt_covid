@@ -6,7 +6,8 @@ export default class CustomTooltip extends React.Component{
         super(props);
     }
     render() {
-        const { active, payload, label, myLabelType, index, myOpacity, ...rest } = this.props;
+        let { active, payload, label, myLabelType, index, myOpacity, myToFixed, ...rest } = this.props;
+        myToFixed = myToFixed!==undefined?myToFixed:2;
         return(
             <div>
                 {active && <div key={index} className="custom-tooltip" 
@@ -17,7 +18,7 @@ export default class CustomTooltip extends React.Component{
                         borderRadius: '0.5em'}}
                 >
                     <div className="label" style={{fontWeight: "bold"}}>{myLabelType=="date"?moment(label).format('MMM D'):label}</div>
-                    {payload && payload.map((item, index)=><div className="contents" style={{display: 'flex', flexDirection: 'column', fontSize: '12px'}}>{item.name!="smoothed_9d"&&`${item.name}: ${((item.value+"").split(",").map((x,y)=>x && (+x).toFixed(2))).join(" ~ ")}`}</div>)}
+                    {payload && payload.map((item, index)=><div className="contents" style={{display: 'flex', flexDirection: 'column', fontSize: '12px'}}>{item.name!="smoothed_9d"&&`${item.name}: ${((item.value+"").split(",").map((x,y)=>x && (+x).toFixed(myToFixed))).join(" ~ ")}`}</div>)}
                 </div>}
             </div>
         );
