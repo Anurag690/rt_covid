@@ -41,3 +41,14 @@ export async function getNewCasesData() {
         .catch(err=>{reject(err)})
     })
 }
+
+export async function getCovidDistrictData() {
+    return new Promise((resolve, reject) => {
+        fetch('/api/rtcovid/district')
+        .then(response => response.json())
+        .then(data => {
+            resolve(data)
+        })
+        .catch(err=>{reject(err)})
+    })
+}

@@ -1,4 +1,4 @@
-var {getRTCovidStatesData, getRTCovidCountryData, getNewCasesData} =  require('./rtCovid.service');
+var {getRTCovidStatesData, getRTCovidCountryData, getNewCasesData, getDistrictData} =  require('./rtCovid.service');
 var storage = require('node-persist');
 
 async function Ctrl_RTCovidStatesData(req, res) {
@@ -67,8 +67,20 @@ async function Ctrl_NewCasesData(req, res) {
     }
 }
 
+async function Ctrl_RTCovidDistrictData(req, res) {
+    try{
+        const result = await getDistrictData();
+        res.send(result);
+    }catch(e) {
+        console.log(e);
+        res.send({
+            error: "Something went wrong!"
+        })
+    }
+}
+
 module.exports = {
     Ctrl_RTCovidCountryData, Ctrl_RTCovidStatesData,
     Ctrl_RTCovidDataFile, Ctrl_RTCovidDataUpdationDate,
-    Ctrl_NewCasesData
+    Ctrl_NewCasesData, Ctrl_RTCovidDistrictData
 };

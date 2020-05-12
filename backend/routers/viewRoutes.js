@@ -30,6 +30,16 @@ class Routes{
                 metaData
             });
         });
+        router.get('/rtcovid/districts', function(req, res) {
+            var metaData = {
+                title: "Rt Covid",
+                description: "",
+                canonical: "http://www.nidhigupta.live/rtcovid"
+            }
+            res.render('index', {
+                metaData
+            });
+        });
         return router;
     }
 }

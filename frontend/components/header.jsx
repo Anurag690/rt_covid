@@ -1,6 +1,12 @@
 import React from 'react';
+import {
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 import moment from 'moment';
 import {getCovidUpdationDate} from '../services/covidData';
+// import DistrictChart from './districtChart';
 
 export default class Header extends React.Component{
     constructor(props) {
@@ -23,6 +29,7 @@ export default class Header extends React.Component{
         })
     }
     render() {
+        // let { path, url } = useRouteMatch();
         const rtText = function(){return(<span>R<sub>t</sub></span>)}
         return(
             <div style={{
@@ -43,6 +50,7 @@ export default class Header extends React.Component{
                 }}>
                     {rtText()} Covid-19 
                 </h1>
+                <Link to={`/rtcovid/districts`}>View District Level</Link>
                 <div style={{
                     color: 'rgba(0,0,0,0.65)', 
                     lineHeight: 1.5715, 

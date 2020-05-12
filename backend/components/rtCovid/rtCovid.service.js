@@ -157,8 +157,116 @@ function getNewCasesData() {
         }
     })
 }
+function getDistrictData() {
+    return new Promise(async(resolve, reject)=>{
+        try{
+            await storage.init();
+            let updationDate = await storage.getItem('updationDate');
+            updationDate = updationDate.split("T")[0].substr(5,10).replace(/-/g,"");
+            const FILE_NAME = "data_rt_district_"+updationDate+".csv";
+            const csvFilePath = path.resolve('./'+FILE_NAME)
+            const jsonArray = await csvToJson().fromFile(csvFilePath);
+            var stateObject = {};
+            async.forEachOfSeries(jsonArray, (item, key, callback)=>{
+                var {state, date, ML, Low_90, High_90, Low_50, High_50, district} = item;
+                // if(state_ab!="HP" && state_ab!="TR" && state_ab!="AS" && state_ab!="CT" && state_ab!="UT" && state_ab!="PY") {
+                    if(stateObject[state]) {
+                        if(district!="Unknown") {
+                            if(stateObject[state][district]) {
+                                stateObject[state][district].push({
+                                    date,
+                                    RT: (+ML),
+                                    RT_90: [(+Low_90), (+High_90)],
+                                    RT_50: [(+Low_50), (+High_50)],
+                                    Low_90: (+Low_90),
+                                    High_90: (+High_90)    
+                                })
+                                callback();
+                            } else {
+                                stateObject[state][district] = [];
+                                stateObject[state][district].push({
+                                    date,
+                                    RT: (+ML),
+                                    RT_90: [(+Low_90), (+High_90)],
+                                    RT_50: [(+Low_50), (+High_50)],
+                                    Low_90: (+Low_90),
+                                    High_90: (+High_90)
+                                })
+                                callback();
+                            }
+                        } else {
+                            callback();
+                        }
+                    } else {
+                        stateObject[state] = {};
+                        if(district!="Unknown") {
+                            stateObject[state][district] = [];
+                            stateObject[state][district].push({
+                                date,
+                                RT: (+ML),
+                                RT_90: [(+Low_90), (+High_90)],
+                                RT_50: [(+Low_50), (+High_50)],
+                                Low_90: (+Low_90),
+                                High_90: (+High_90)
+                            });
+                            callback();
+                        } else {
+                            callback();
+                        }
+                    }
+                // } else{
+                //     callback();
+                // }
+            }, (error)=>{
+                if(!error) {
+                    var newStateObject = {}
+                    async.forEachOfSeries(Object.keys(stateObject), (item, key, callback)=>{
+                        var newDistrictObject = {}
+                        async.forEachOfSeries(Object.keys(stateObject[item]), (item1, key1, callback1)=>{
+                            var colorBreakPoint = 1;
+                            
+                            var { min, max } = stateObject[item][item1].reduce((result, dataPoint) => ({
+                                    min: (dataPoint.Low_90 < result.min || result.min === 0) ? dataPoint.Low_90 : result.min,
+                                    max: (dataPoint.High_90 > result.max || result.max === 0) ? dataPoint.High_90 : result.max,
+                                }), { min: 0, max: 0 }
+                            );
+                            
+                            var colorBreakPointPercentage90 = (max-min)?`${(1 - ((colorBreakPoint - min) / (max - min))) * 100}%`:min<1?0:100;
+
+                            var { min, max } = stateObject[item][item1].reduce((result, dataPoint) => ({
+                                    min: (dataPoint.RT < result.min || result.min === 0) ? dataPoint.RT : result.min,
+                                    max: (dataPoint.RT > result.max || result.max === 0) ? dataPoint.RT : result.max,
+                                }), { min: 0, max: 0 }
+                            );
+                            var colorBreakPointPercentageML = (max-min)?`${(1 - ((colorBreakPoint - min) / (max - min))) * 100}%`:min<1?0:100;
+                            
+                            var newObject = Object.assign({}, {item: stateObject[item][item1], colorBreakPointPercentage90, colorBreakPointPercentageML})
+                            newDistrictObject[item1] = {}
+                            newDistrictObject[item1] = newObject
+                            callback1();
+                        }, (err)=>{
+                            newStateObject[item] = newDistrictObject
+                            callback()
+                        })
+                    }, err=>{
+                        if(!err) {
+                            resolve(newStateObject);
+                        }else {
+                            reject(err);
+                        }
+                    })
+                } else {
+                    reject(error);
+                }
+            })
+        }catch(e) {
+            reject(e);
+        }
+    })
+}
 module.exports = {
     getRTCovidCountryData,
     getRTCovidStatesData,
-    getNewCasesData
+    getNewCasesData,
+    getDistrictData
 };

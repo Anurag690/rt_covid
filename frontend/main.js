@@ -1,11 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App.jsx';
-import { Router, Route, browserHistory } from 'react-router';
+import AppRouter from './AppRouter';
 
 ReactDOM.render( 
-    <Router history = { browserHistory }>
-        <Route path = "/rtcovid" component = { App } />
-    </Router> ,
+    <AppRouter/> ,
     document.getElementById('app')
 );
