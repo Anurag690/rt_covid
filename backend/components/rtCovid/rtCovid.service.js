@@ -9,7 +9,7 @@ function getRTCovidStatesData() {
         let updationDate = await storage.getItem('updationDate');
         updationDate = updationDate.split("T")[0].substr(5,10).replace(/-/g,"");
         const FILE_NAME = "data_rt_"+updationDate+".csv";
-        const csvFilePath = path.resolve('./'+FILE_NAME)
+        const csvFilePath = path.resolve('./csv_files/'+FILE_NAME)
         const jsonArray = await csvToJson().fromFile(csvFilePath);
         var stateObject = {};
         async.forEachOfSeries(jsonArray, (item, key, callback)=>{
@@ -75,7 +75,7 @@ function getRTCovidCountryData() {
         let updationDate = await storage.getItem('updationDate');
         updationDate = updationDate.split("T")[0].substr(5,10).replace(/-/g,"");
         const FILE_NAME = "data_rt_"+updationDate+".csv";
-        const csvFilePath = path.resolve('./'+FILE_NAME);
+        const csvFilePath = path.resolve('./csv_files/'+FILE_NAME);
         
         const jsonArray = await csvToJson().fromFile(csvFilePath);
         var stateObject = {};
@@ -134,7 +134,7 @@ function getNewCasesData() {
             await storage.init();
             let updationDate = await storage.getItem('updationDate');
             updationDate = updationDate.split("T")[0].substr(5,10).replace(/-/g,"")
-            const csvFilePath = path.resolve('./new_cases_'+updationDate+".csv")
+            const csvFilePath = path.resolve('./csv_files/new_cases_'+updationDate+".csv")
             const jsonArray = await csvToJson().fromFile(csvFilePath);
             var stateObject = {};
             async.forEachOfSeries(jsonArray, (item, key, callback)=>{
