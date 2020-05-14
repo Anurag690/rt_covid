@@ -13,8 +13,8 @@ function getRTCovidStatesData() {
         const jsonArray = await csvToJson().fromFile(csvFilePath);
         var stateObject = {};
         async.forEachOfSeries(jsonArray, (item, key, callback)=>{
-            var {state, date, ML, Low_90, High_90, Low_50, High_50, state_ab} = item;
-            if(state_ab!="HP" && state_ab!="TR" && state_ab!="AS" && state_ab!="CT" && state_ab!="UT" && state_ab!="PY") {
+            var {state, date, ML, Low_90, High_90, Low_50, High_50, state_ab, insufficient_data} = item;
+            if(!(+insufficient_data)) {
                 if(stateObject[state]) {
                     stateObject[state].push({
                         date,
@@ -80,43 +80,43 @@ function getRTCovidCountryData() {
         const jsonArray = await csvToJson().fromFile(csvFilePath);
         var stateObject = {};
         async.forEachOfSeries(jsonArray, (item, index, callback)=>{
-            var {state, date, ML, Low_90, Low_50, High_50, High_90, state_ab} = item;
-            if(state_ab!="HP" && state_ab!="TR" && state_ab!="AS" && state_ab!="CT" && state_ab!="UT" && state_ab!="PY"){
+            var {state, date, ML, Low_90, Low_50, High_50, High_90, state_ab, insufficient_data} = item;
+            if(!(+insufficient_data)){
                 var colorBreakPoint = 1;
-            var colorBreakPointPercentage90 = `${(1 - ((colorBreakPoint - Low_90) / (High_90 - Low_90))) * 100}%`;
-            var colorBreakPointPercentage50 = `${(1 - ((colorBreakPoint - Low_50) / (High_50 - Low_50))) * 100}%`;
+                var colorBreakPointPercentage90 = `${(1 - ((colorBreakPoint - Low_90) / (High_90 - Low_90))) * 100}%`;
+                var colorBreakPointPercentage50 = `${(1 - ((colorBreakPoint - Low_50) / (High_50 - Low_50))) * 100}%`;
 
-            if(stateObject[state]) {
-                stateObject[state] = {
-                    state,
-                    date,
-                    RT: (+ML),
-                    RT_90: [(+Low_90), (+High_90)],
-                    RT_50: [(+Low_50), (+High_50)],
-                    Low_90: (+Low_90),
-                    High_90: (+High_90),
-                    colorBreakPointPercentage50,
-                    colorBreakPointPercentage90,
-                    state_ab
-                };
-                callback();
-            } else {
-                stateObject[state] = [];
+                if(stateObject[state]) {
+                    stateObject[state] = {
+                        state,
+                        date,
+                        RT: (+ML),
+                        RT_90: [(+Low_90), (+High_90)],
+                        RT_50: [(+Low_50), (+High_50)],
+                        Low_90: (+Low_90),
+                        High_90: (+High_90),
+                        colorBreakPointPercentage50,
+                        colorBreakPointPercentage90,
+                        state_ab
+                    };
+                    callback();
+                } else {
+                    stateObject[state] = [];
 
-                stateObject[state] = {
-                    state,
-                    date,
-                    RT: (+ML),
-                    RT_90: [(+Low_90), (+High_90)],
-                    RT_50: [(+Low_50), (+High_50)],
-                    Low_90: (+Low_90),
-                    High_90: (+High_90),
-                    colorBreakPointPercentage50,
-                    colorBreakPointPercentage90,
-                    state_ab
-                };
-                callback();
-            }
+                    stateObject[state] = {
+                        state,
+                        date,
+                        RT: (+ML),
+                        RT_90: [(+Low_90), (+High_90)],
+                        RT_50: [(+Low_50), (+High_50)],
+                        Low_90: (+Low_90),
+                        High_90: (+High_90),
+                        colorBreakPointPercentage50,
+                        colorBreakPointPercentage90,
+                        state_ab
+                    };
+                    callback();
+                }
             }else{
                 callback();
             }
