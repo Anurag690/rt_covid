@@ -17,3 +17,93 @@
 .stateComposedNewCase {
     opacity: 0.2;
 }
+.headerContainer {
+    background-color: white;
+    padding-left: 7%;
+    margin-top: 2%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    max-width: 70%;
+}
+.headerContainer h1{
+    font-size: 38px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.3em;
+    margin-top: 0.3em;
+    flex: 1;
+}
+.headerContainer .tabs {
+    flex: 3;
+    display: flex;
+}
+.headerContainer .tabs a{
+    text-decoration: none;
+    padding: 2%;
+    width: fit-content;
+    background-color: rgb(247, 246, 243);
+    color: black;
+    box-sizing: border-box;
+    display: inline-block;
+    cursor: pointer;
+    font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, "Segoe UI", Arial, sans-serif;
+    height: 26px;
+    outline-style: none;
+    width: 140px;
+    text-align: center;
+    font-size: 12px;
+    white-space: nowrap;
+    -webkit-appearance: none;
+    -webkit-border-image: none;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    border-radius: 32px;
+    margin: 0px;
+    margin-right: 1em;
+    padding: 4px 16px;
+}
+.headerContainer .tabs a:hover {
+    text-decoration: none;
+    padding: 2%;
+    width: fit-content;
+    background-color: rgb(216, 216, 216);
+    color: black;
+    box-sizing: border-box;
+    display: inline-block;
+    cursor: pointer;
+    font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, "Segoe UI", Arial, sans-serif;
+    height: 26px;
+    outline-style: none;
+    width: 140px;
+    text-align: center;
+    font-size: 12px;
+    white-space: nowrap;
+    -webkit-appearance: none;
+    -webkit-border-image: none;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    border-radius: 32px;
+    margin: 0px;
+    padding: 4px 16px;
+    margin-right: 1em;
+}
+.districtContainer {
+    padding: 0% 7% 2% 7%;
+}
+.districtContainer select {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    height: 3.5em;
+    font-family: 'SF Pro Text','Helvetica Neue',-apple-system,BlinkMacSystemFont,'Helvetica','Segoe UI','Arial',sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    font-size: 14px;
+    line-height: 1.5715 !important;
+    outline: none;
+}

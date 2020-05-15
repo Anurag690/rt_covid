@@ -164,7 +164,7 @@ function getDistrictData() {
             let updationDate = await storage.getItem('updationDate');
             updationDate = updationDate.split("T")[0].substr(5,10).replace(/-/g,"");
             const FILE_NAME = "data_rt_district_"+updationDate+".csv";
-            const csvFilePath = path.resolve('./'+FILE_NAME)
+            const csvFilePath = path.resolve('./csv_files/'+FILE_NAME)
             const jsonArray = await csvToJson().fromFile(csvFilePath);
             var stateObject = {};
             async.forEachOfSeries(jsonArray, (item, key, callback)=>{
