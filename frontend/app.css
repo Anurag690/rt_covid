@@ -40,7 +40,7 @@
         flex-wrap: wrap;
         margin-bottom: 5%;
     }
-    .recharts-wrapper {
+    .districtContainer .recharts-wrapper {
         width: 111% !important;
     }
     .districtContainer .recharts-surface {
@@ -60,14 +60,14 @@
         width: 100% !important;
         height: 20% !important;
     }
-    .state-chart .recharts-surface {
-        width: 100% !important;
+    /* .state-chart .recharts-surface {
+        width: 111% !important;
     }
-    .newCasesChartBase .recharts-wrapper {
+    .state-chart .recharts-wrapper {
         width: 100% !important;
-    }
+    } */
     .state-chart .chart-header{
-        min-width: 84% !important;
+        min-width: 85% !important;
     }
 }
 .scroll-to-top {
