@@ -40,6 +40,39 @@
         flex-wrap: wrap;
         margin-bottom: 5%;
     }
+    .recharts-wrapper {
+        width: 111% !important;
+    }
+    .districtContainer .recharts-surface {
+        width: 125% !important;
+    }
+    .smallChartHeader {
+        min-width: 100% !important;
+    }
+    .recharts-legend-wrapper {
+        width: 100% !important;
+        display: none;
+    }
+    .country-chart .recharts-wrapper {
+        height: 30% !important;
+    }
+    .country-chart .recharts-surface{
+        width: 100% !important;
+        height: 20% !important;
+    }
+    .state-chart .recharts-surface {
+        width: 100% !important;
+    }
+    .newCasesChartBase .recharts-wrapper {
+        width: 100% !important;
+    }
+    .state-chart .chart-header{
+        min-width: 84% !important;
+    }
+}
+.scroll-to-top {
+    display: flex !important;
+    justify-content: center !important;
 }
 .headerContainer h1{
     font-size: 38px;

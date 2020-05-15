@@ -172,7 +172,7 @@ export default class CountryChart extends React.Component {
             }
         ]
         return (
-            <div style={{
+            <div className="country-chart" style={{
                 display: 'flex', 
                 flexWrap: 'wrap', 
                 padding: '0% 1.5% 0%', 

@@ -43,7 +43,6 @@ export default class ScrollToTop extends React.Component{
                 boxShadow: '0px 2px 12px rgba(0,0,0,0.12)', 
                 cursor: 'pointer', 
                 padding: '4px 10px', 
-                left: '47%', 
                 color: '#fff',
                 marginTop: '1%'
             }} onClick={() => this.scrollToTop()}>

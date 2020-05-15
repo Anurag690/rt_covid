@@ -38,8 +38,8 @@ export default class DistrictCharts extends React.Component {
             let myData = districtArray[item]
             let lastRT = (+myData.item[myData.item.length-1].RT).toFixed(2)
             return(
-                <div key={index} id={""+item} onClick={(event)=>event.preventDefault()} width="100%" style={{display: 'flex', flexDirection: 'column', alignItems: 'start', marginTop: '1%', marginBottom: '1%', color: 'rgba(0,0,0,0.85)'}}>
-                    <div style={{display: 'flex', justifyContent: 'space-between', minWidth: '77%', alignItems: 'center'}}>
+                <div key={index} id={""+item} onClick={(event)=>event.preventDefault()} style={{display: 'flex', flexDirection: 'column', alignItems: 'start', marginTop: '1%', marginBottom: '1%', color: 'rgba(0,0,0,0.85)'}}>
+                    <div className="smallChartHeader" style={{display: 'flex', justifyContent: 'space-between', minWidth: '77%', alignItems: 'center'}}>
                         <div style={{fontWeight: 'bold', marginBottom: '1%'}}>
                             {item}
                         </div>
