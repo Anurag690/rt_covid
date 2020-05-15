@@ -3,3 +3,4 @@ node_modules
 backend/public/bundles
 .vscode
 .node-persist
+csv_files/*.csv
