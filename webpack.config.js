@@ -2,7 +2,7 @@ var path = require('path');
 const webpack = require('webpack');
 
 var config = {
-    mode: 'development',
+    mode: 'production',
     devtool : 'source-map',
     entry: './frontend/main.js',
     output: {
@@ -34,30 +34,30 @@ var config = {
     },
     plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify("development")
+      'process.env.NODE_ENV': JSON.stringify("production")
     }),
   ], 
   optimization: {
-    minimize: false,
-    // splitChunks: {
-    //     chunks: 'async',
-    //     minSize: 1000,
-    //     minChunks: 2,
-    //     maxAsyncRequests: 5,
-    //     maxInitialRequests: 3,
-    //     name: true,
-    //     cacheGroups: {
-    //       default: {
-    //         minChunks: 1,
-    //         priority: -20,
-    //         reuseExistingChunk: true
-    //       },
-    //       vendors: {
-    //         test: /[\\/]node_modules[\\/]/,
-    //         priority: -10
-    //       }
-    //     }
-    // }
+    minimize: true,
+    splitChunks: {
+        chunks: 'async',
+        minSize: 1000,
+        minChunks: 2,
+        maxAsyncRequests: 5,
+        maxInitialRequests: 3,
+        name: true,
+        cacheGroups: {
+          default: {
+            minChunks: 1,
+            priority: -20,
+            reuseExistingChunk: true
+          },
+          vendors: {
+            test: /[\\/]node_modules[\\/]/,
+            priority: -10
+          }
+        }
+    }
   }
 }
 module.exports = config;
