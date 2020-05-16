@@ -24,7 +24,7 @@ class Routes{
             var metaData = {
                 title: "Rt Covid",
                 description: "",
-                canonical: "http://www.nidhigupta.live/rtcovid"
+                canonical: "https://www.nidhigupta.live/rtcovid"
             }
             res.render('index', {
                 metaData
@@ -34,7 +34,7 @@ class Routes{
             var metaData = {
                 title: "Rt Covid",
                 description: "",
-                canonical: "http://www.nidhigupta.live/rtcovid"
+                canonical: "https://www.nidhigupta.live/rtcovid"
             }
             res.render('index', {
                 metaData
