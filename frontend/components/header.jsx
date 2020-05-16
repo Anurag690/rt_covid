@@ -15,7 +15,7 @@ export default class Header extends React.Component{
                     {rtText()} Covid-19 
                 </h1>
                 <div className="tabs">
-                    <Link to={`/rtcovid`}>Home</Link>
+                    <Link to={`/rtcovid`}>View State Level</Link>
                     <Link to={`/rtcovid/districts`}>View District Level</Link>
                 </div>
             </div>
