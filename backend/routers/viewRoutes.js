@@ -22,8 +22,8 @@ class Routes{
         })
         router.get('/rtcovid', function(req, res) {
             var metaData = {
-                title: "Rt Covid",
-                description: "",
+                title: "Rt Tracker India – Covid-19",
+                description: "Rt Tracker India – Covid-19",
                 canonical: "https://www.nidhigupta.live/rtcovid"
             }
             res.render('index', {
@@ -32,8 +32,8 @@ class Routes{
         });
         router.get('/rtcovid/districts', function(req, res) {
             var metaData = {
-                title: "Rt Covid",
-                description: "",
+                title: "Rt Tracker India – Covid-19",
+                description: "Rt Tracker India – Covid-19",
                 canonical: "https://www.nidhigupta.live/rtcovid"
             }
             res.render('index', {

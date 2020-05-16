@@ -75,15 +75,15 @@
     justify-content: center !important;
 }
 .headerContainer h1{
-    font-size: 38px;
+    font-size: 2.7em;
     font-weight: 600;
     letter-spacing: -0.5px;
     margin-bottom: 0.3em;
     margin-top: 0.3em;
-    flex: 1;
+    flex: 3;
 }
 .headerContainer .tabs {
-    flex: 3;
+    flex: 1;
     display: flex;
 }
 .headerContainer .tabs a{

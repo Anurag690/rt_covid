@@ -12,7 +12,7 @@ export default class Header extends React.Component{
         return(
             <div className="headerContainer">
                 <h1 className="ant-typography">
-                    {rtText()} Covid-19 
+                    {rtText()} Tracker India – Covid-19 
                 </h1>
                 <div className="tabs">
                     <Link to={`/rtcovid`}>View State Level</Link>
