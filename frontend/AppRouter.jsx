@@ -8,6 +8,7 @@ import App from './components/home';
 import DistrictChart from './components/districtChart';
 import ScrollToTop from './components/scrollToTop';
 import Header from './components/header';
+import BodyContent from './components/bodyContent';
 
 export default class AppRouter extends React.Component {
     render() {
@@ -15,6 +16,7 @@ export default class AppRouter extends React.Component {
             <Router>
                 <ScrollToTop/>
                 <Header/>
+                <BodyContent/>
                 <Switch>
                     <Route exact path="/rtcovid">
                         <App />
