@@ -125,7 +125,7 @@ export default class CountryChart extends React.Component {
         return(
             <defs>
             {this.state.data && this.state.data.map((item, index)=>
-                <defs>
+                <defs key={index}>
                     <linearGradient id={"colorBar90_"+index} x1="0%" y1="0%" x2="0%" y2="100%">
                         <stop offset="0%" stopColor="rgba(235, 83, 88, 0.2)" stopOpacity="1" />
                         <stop offset={item.colorBreakPointPercentage90} stopColor="rgba(235, 83, 88, 0.2)" stopOpacity="1" />
