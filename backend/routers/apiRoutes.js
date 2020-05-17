@@ -10,11 +10,17 @@ class Routes{
             return router;
         }
         router.get('*', function(req, res, next) {
-            switch(req.path) {
-                case '/':
-                    break;
+            if(req.headers.authorization != process.env.AUTH_TOKEN) {
+                res.send({
+                    error: "Unauthorized Access!"
+                });
+            } else {
+                switch(req.path) {
+                    case '/':
+                        break;
+                }
+                next();
             }
-            next();
         });
         router.use('/rtcovid', rtCovidRoutes);
         return router;

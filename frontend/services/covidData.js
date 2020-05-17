@@ -1,6 +1,9 @@
+const headers = {"Content-Type": "application/json"};
+headers["Authorization"] = AUTH_TOKEN || 'auth';
+
 export async function getCovidStatesData() {
     return new Promise((resolve, reject) => {
-        fetch('/api/rtcovid/states')
+        fetch('/api/rtcovid/states', {headers})
         .then(response => response.json())
         .then(data => {
             resolve(data)
@@ -11,7 +14,7 @@ export async function getCovidStatesData() {
 
 export async function getCovidCountryData() {
     return new Promise((resolve, reject) => {
-        fetch('/api/rtcovid/country')
+        fetch('/api/rtcovid/country', {headers})
         .then(response => response.json())
         .then(data => {
             resolve(data)
@@ -22,7 +25,7 @@ export async function getCovidCountryData() {
 
 export async function getCovidUpdationDate() {
     return new Promise((resolve, reject) => {
-        fetch('/api/rtcovid/updationDate')
+        fetch('/api/rtcovid/updationDate', {headers})
         .then(response => response.json())
         .then(data => {
             resolve(data)
@@ -33,7 +36,7 @@ export async function getCovidUpdationDate() {
 
 export async function getNewCasesData() {
     return new Promise((resolve, reject) => {
-        fetch('/api/rtcovid/newcases')
+        fetch('/api/rtcovid/newcases', {headers})
         .then(response => response.json())
         .then(data => {
             resolve(data)
@@ -44,7 +47,7 @@ export async function getNewCasesData() {
 
 export async function getCovidDistrictData() {
     return new Promise((resolve, reject) => {
-        fetch('/api/rtcovid/district')
+        fetch('/api/rtcovid/district', {headers})
         .then(response => response.json())
         .then(data => {
             resolve(data)
