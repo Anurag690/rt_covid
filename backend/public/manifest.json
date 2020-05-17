@@ -1,0 +1,9 @@
+{
+	"name" : "Rt Tracker India - Covid19",
+	"short_name" : "Rt Tracker India",
+	"description" : "We have presented here up-to-date values for Rt by state as well as by district. In each of the charts, we represent the most likely value (solid line) along with the 90% confidence range (shaded region above and below the solid line) of Rt.",
+	"start_url" : "http://www.nidhigupta.live/rtcovid",
+	"display" : "fullscreen",
+	"orientation" : "portrait",
+	"lang" : "English"
+}
