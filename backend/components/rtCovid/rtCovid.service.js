@@ -250,7 +250,21 @@ function getDistrictData() {
                         })
                     }, err=>{
                         if(!err) {
-                            resolve(newStateObject);
+
+                            var newList = Object.values(newStateObject).sort(function(x,y){
+                                if(Object.keys(x).length > Object.keys(y).length) return -1;
+                                if(Object.keys(y).length > Object.keys(x).length) return 1;
+                            });
+                            var sortedObject = {}
+                            for(let i=0;i<newList.length;i++) {
+                                for(let j=0;j<Object.keys(newStateObject).length;j++) {
+                                    if(newStateObject[Object.keys(newStateObject)[j]] === newList[i]) {
+                                        sortedObject[Object.keys(newStateObject)[j]] = newList[i];
+                                        continue;
+                                    }
+                                }
+                            }
+                            resolve(sortedObject);
                         }else {
                             reject(err);
                         }
