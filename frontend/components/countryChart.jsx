@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
     XAxis, YAxis, ReferenceLine,
-    Tooltip, CartesianGrid, BarChart, Bar, LabelList, Legend, Cell, Rectangle 
+    CartesianGrid, BarChart, Bar, LabelList, Legend, Rectangle 
 } from 'recharts';
 import {getCovidCountryData} from '../services/covidData';
 // import CustomTooltip from './customTooltip';

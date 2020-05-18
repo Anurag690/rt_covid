@@ -8,6 +8,7 @@ var cookieParser = require('cookie-parser');
 
 var viewRoutes = require('./backend/routers/viewRoutes');
 var apiRoutes = require('./backend/routers/apiRoutes');
+var {apiAuth} = require('./backend/middlewares/auth');
 
 class App{
     constructor() {
@@ -33,7 +34,7 @@ class App{
         app.set('view engine', 'ejs');
 
         app.use('/', viewRoutes);
-        app.use('/api', apiRoutes);
+        app.use('/api', apiAuth, apiRoutes);
 
         app.get('/', function (req, res, next) {
             res.send('Hello World!');

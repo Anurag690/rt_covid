@@ -55,3 +55,14 @@ export async function getCovidDistrictData() {
         .catch(err=>{reject(err)})
     })
 }
+
+export async function getDistrictNewCasesData() {
+    return new Promise((resolve, reject) => {
+        fetch('/api/rtcovid/district/newcases', {headers})
+        .then(response => response.json())
+        .then(data => {
+            resolve(data)
+        })
+        .catch(err=>{reject(err)})
+    })
+}

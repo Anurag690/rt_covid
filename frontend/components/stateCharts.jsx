@@ -6,7 +6,7 @@ import {
 
 import {getCovidStatesData, getNewCasesData} from '../services/covidData';
 import CustomTooltip from './customTooltip';
-import NewCasesChart from './newCasesChart'
+import NewCasesChart from './newCasesChart';
 import moment from 'moment';
 
 export default class StateCharts extends React.Component {

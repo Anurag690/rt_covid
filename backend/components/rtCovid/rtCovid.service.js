@@ -278,9 +278,39 @@ function getDistrictData() {
         }
     })
 }
+function getDistrictNewCasesData() {
+    return new Promise(async(resolve, reject)=>{
+        try{
+            await storage.init();
+            let updationDate = await storage.getItem('updationDate');
+            updationDate = updationDate.split("T")[0].substr(5,10).replace(/-/g,"")
+            const csvFilePath = path.resolve('./csv_files/new_cases_district_'+updationDate+".csv")
+            const jsonArray = await csvToJson().fromFile(csvFilePath);
+            var stateObject = {};
+            async.forEachOfSeries(jsonArray, (item, key, callback)=>{
+                let {date, new_cases, smoothed_9d} = item;
+                if(stateObject[item.state]) {
+                    stateObject[item.state].push({
+                        date,
+                        new_cases: (+new_cases),
+                        smoothed_9d: (+smoothed_9d)
+                    });
+                } else {
+                    stateObject[item.state] = [];
+                }
+                callback();
+            }, (err)=>{
+                resolve(stateObject)
+            })
+        }catch(err) {
+            reject(err);
+        }
+    })
+}
 module.exports = {
     getRTCovidCountryData,
     getRTCovidStatesData,
     getNewCasesData,
-    getDistrictData
+    getDistrictData,
+    getDistrictNewCasesData
 };
