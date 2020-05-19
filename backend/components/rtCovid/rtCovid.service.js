@@ -169,7 +169,7 @@ function getDistrictData() {
             var stateObject = {};
             async.forEachOfSeries(jsonArray, (item, key, callback)=>{
                 var {state, date, ML, Low_90, High_90, Low_50, High_50, district} = item;
-                // if(state_ab!="HP" && state_ab!="TR" && state_ab!="AS" && state_ab!="CT" && state_ab!="UT" && state_ab!="PY") {
+                if(state!=="Chandigarh") {
                     if(stateObject[state]) {
                         if(district!="Unknown") {
                             if(stateObject[state][district]) {
@@ -214,9 +214,9 @@ function getDistrictData() {
                             callback();
                         }
                     }
-                // } else{
-                //     callback();
-                // }
+                } else{
+                    callback();
+                }
             }, (error)=>{
                 if(!error) {
                     var newStateObject = {}
