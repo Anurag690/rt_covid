@@ -288,15 +288,15 @@ function getDistrictNewCasesData() {
             const jsonArray = await csvToJson().fromFile(csvFilePath);
             var stateObject = {};
             async.forEachOfSeries(jsonArray, (item, key, callback)=>{
-                let {date, new_cases, smoothed_9d} = item;
-                if(stateObject[item.state]) {
-                    stateObject[item.state].push({
+                let {date, new_cases, smoothed_9d, district} = item;
+                if(stateObject[district]) {
+                    stateObject[district].push({
                         date,
                         new_cases: (+new_cases),
                         smoothed_9d: (+smoothed_9d)
                     });
                 } else {
-                    stateObject[item.state] = [];
+                    stateObject[district] = [];
                 }
                 callback();
             }, (err)=>{

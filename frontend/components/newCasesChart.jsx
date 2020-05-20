@@ -11,6 +11,7 @@ export default class NewCasesChart extends React.Component {
         super(props);
     }
     render() {
+        console.log(this.props.data)
         return(
             <div className="newCasesChartBase">
                 <LineChart

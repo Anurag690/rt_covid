@@ -17,7 +17,7 @@ export default class DistrictCharts extends React.Component {
             selectedState: -1,
             strokeColor: 'red',
             showNewCases: {},
-            showNewCaseChartFlag: false
+            showNewCaseChartFlag: true
         }
         this.loadStatesGraph = this.loadStatesGraph.bind(this);
     }
@@ -29,18 +29,18 @@ export default class DistrictCharts extends React.Component {
                 this.setState({
                     selectedState: Object.keys(this.state.data)[0]
                 })
-                // getDistrictNewCasesData().then((data)=>{
-                //     if(!data.error) {
-                //         this.setState({
-                //             newCasesData: data,
-                //             showNewCaseChartFlag: true
-                //         })
-                //     } else {
-                //         this.setState({
-                //             showNewCaseChartFlag: false
-                //         })
-                //     }
-                // })
+                getDistrictNewCasesData().then((data)=>{
+                    if(!data.error) {
+                        this.setState({
+                            newCasesData: data,
+                            showNewCaseChartFlag: true
+                        })
+                    } else {
+                        this.setState({
+                            showNewCaseChartFlag: false
+                        })
+                    }
+                })
             })
         }).catch(err=>{
             
