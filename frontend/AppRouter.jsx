@@ -29,8 +29,8 @@ export default class AppRouter extends React.Component {
                     </Route>
                 </Switch>
                 <div className="notes-section">
-                    {/* <div>* States with less than 100 cases have been removed because of insufficient data.</div> */}
-                    <div>* The model calculates Rt based on report time and is not backdated to onset time. So, the current Rt represents the spread of virus as of 5-6 day ago. The model also does not incorporate serial interval as a distribution. Update coming for both.</div>
+                    <div>* There is an incubation period in which people are likely infectious but not symptomatic. This model assumes infectiousness begins with symptoms. While future versions may correct for this, a simple heuristic is to shift all values of Rt 5 days into the past. The model calculates Rt based on report time and is not backdated to onset time.</div>
+                    <div>* The model also does not incorporate serial interval as a distribution. Update coming for both.</div>
                 </div>
                 <Footer/>
             </Router>
