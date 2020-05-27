@@ -171,7 +171,7 @@ function getDistrictData() {
                 var {state, date, ML, Low_90, High_90, Low_50, High_50, district} = item;
                 if(state!=="Chandigarh") {
                     if(stateObject[state]) {
-                        if(district!="Unknown") {
+                        // if(district!="Unknown") {
                             if(stateObject[state][district]) {
                                 stateObject[state][district].push({
                                     date,
@@ -194,12 +194,12 @@ function getDistrictData() {
                                 })
                                 callback();
                             }
-                        } else {
-                            callback();
-                        }
+                        // } else {
+                        //     callback();
+                        // }
                     } else {
                         stateObject[state] = {};
-                        if(district!="Unknown") {
+                        // if(district!="Unknown") {
                             stateObject[state][district] = [];
                             stateObject[state][district].push({
                                 date,
@@ -210,9 +210,9 @@ function getDistrictData() {
                                 High_90: (+High_90)
                             });
                             callback();
-                        } else {
-                            callback();
-                        }
+                        // } else {
+                        //     callback();
+                        // }
                     }
                 } else{
                     callback();
