@@ -166,3 +166,14 @@
     line-height: 1.5715 !important;
     max-width: 70%;
 }
+
+.top-notes {
+    font-weight: bold;
+    color: rgb(169,169,169);
+    font-family: 'SF Pro Text','Helvetica Neue',-apple-system,BlinkMacSystemFont,'Helvetica','Segoe UI','Arial',sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    font-size: 0.8em;
+    line-height: 1.5715 !important;
+    max-width: 70%;
+}
