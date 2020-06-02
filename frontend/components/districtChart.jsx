@@ -184,11 +184,11 @@ export default class DistrictCharts extends React.Component {
         let that = this;
         return (
             <div className="districtContainer">
-                {this.state.selectedState=="Maharashtra"&&<Route path={"/rtcovid/districts"}>
+                {/* {this.state.selectedState=="Maharashtra"&&<Route path={"/rtcovid/districts"}>
                     <div className="top-notes">
                         * Please note there is an aberration in the new cases data for Maharashtra's districts for 29th May. On this day, the data showed 0 new cases for all districts in Maharashtra. This has led to a dip in the Rt values. around this date. I will update the charts once I have more accurate data for that day.
                     </div>
-                </Route>}
+                </Route>} */}
                 <select name="states" id="states_select" value={this.state.selectedState} onChange={(event)=>this.handleStateChange(event)}>
                     {Object.keys(this.state.data).map((item, index) => <option key={index} value={item}>{item}</option>)}
                 </select>
