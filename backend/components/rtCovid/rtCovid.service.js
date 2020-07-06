@@ -169,9 +169,9 @@ function getDistrictData() {
             var stateObject = {};
             async.forEachOfSeries(jsonArray, (item, key, callback)=>{
                 var {state, date, ML, Low_90, High_90, Low_50, High_50, district} = item;
-                // if(state_ab!="HP" && state_ab!="TR" && state_ab!="AS" && state_ab!="CT" && state_ab!="UT" && state_ab!="PY") {
+                if(state!=="Chandigarh") {
                     if(stateObject[state]) {
-                        if(district!="Unknown") {
+                        // if(district!="Unknown") {
                             if(stateObject[state][district]) {
                                 stateObject[state][district].push({
                                     date,
@@ -194,12 +194,12 @@ function getDistrictData() {
                                 })
                                 callback();
                             }
-                        } else {
-                            callback();
-                        }
+                        // } else {
+                        //     callback();
+                        // }
                     } else {
                         stateObject[state] = {};
-                        if(district!="Unknown") {
+                        // if(district!="Unknown") {
                             stateObject[state][district] = [];
                             stateObject[state][district].push({
                                 date,
@@ -210,13 +210,13 @@ function getDistrictData() {
                                 High_90: (+High_90)
                             });
                             callback();
-                        } else {
-                            callback();
-                        }
+                        // } else {
+                        //     callback();
+                        // }
                     }
-                // } else{
-                //     callback();
-                // }
+                } else{
+                    callback();
+                }
             }, (error)=>{
                 if(!error) {
                     var newStateObject = {}
@@ -250,7 +250,21 @@ function getDistrictData() {
                         })
                     }, err=>{
                         if(!err) {
-                            resolve(newStateObject);
+
+                            var newList = Object.values(newStateObject).sort(function(x,y){
+                                if(Object.keys(x).length > Object.keys(y).length) return -1;
+                                if(Object.keys(y).length > Object.keys(x).length) return 1;
+                            });
+                            var sortedObject = {}
+                            for(let i=0;i<newList.length;i++) {
+                                for(let j=0;j<Object.keys(newStateObject).length;j++) {
+                                    if(newStateObject[Object.keys(newStateObject)[j]] === newList[i]) {
+                                        sortedObject[Object.keys(newStateObject)[j]] = newList[i];
+                                        continue;
+                                    }
+                                }
+                            }
+                            resolve(sortedObject);
                         }else {
                             reject(err);
                         }
@@ -264,9 +278,39 @@ function getDistrictData() {
         }
     })
 }
+function getDistrictNewCasesData() {
+    return new Promise(async(resolve, reject)=>{
+        try{
+            await storage.init();
+            let updationDate = await storage.getItem('updationDate');
+            updationDate = updationDate.split("T")[0].substr(5,10).replace(/-/g,"")
+            const csvFilePath = path.resolve('./csv_files/new_cases_district_'+updationDate+".csv")
+            const jsonArray = await csvToJson().fromFile(csvFilePath);
+            var stateObject = {};
+            async.forEachOfSeries(jsonArray, (item, key, callback)=>{
+                let {date, new_cases, smoothed_9d, district} = item;
+                if(stateObject[district]) {
+                    stateObject[district].push({
+                        date,
+                        new_cases: (+new_cases),
+                        smoothed_9d: (+smoothed_9d)
+                    });
+                } else {
+                    stateObject[district] = [];
+                }
+                callback();
+            }, (err)=>{
+                resolve(stateObject)
+            })
+        }catch(err) {
+            reject(err);
+        }
+    })
+}
 module.exports = {
     getRTCovidCountryData,
     getRTCovidStatesData,
     getNewCasesData,
-    getDistrictData
+    getDistrictData,
+    getDistrictNewCasesData
 };

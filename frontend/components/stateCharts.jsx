@@ -6,7 +6,7 @@ import {
 
 import {getCovidStatesData, getNewCasesData} from '../services/covidData';
 import CustomTooltip from './customTooltip';
-import NewCasesChart from './newCasesChart'
+import NewCasesChart from './newCasesChart';
 import moment from 'moment';
 
 export default class StateCharts extends React.Component {
@@ -59,7 +59,7 @@ export default class StateCharts extends React.Component {
         let lastRT = (+context.state.data[item].item[context.state.data[item].item.length-1].RT).toFixed(2)
         return(
             <div key={index} id={""+item} onClick={(event)=>event.preventDefault()} width="100%" style={{display: 'flex', flexDirection: 'column', alignItems: 'start', marginTop: '1%', marginBottom: '1%', color: 'rgba(0,0,0,0.85)'}}>
-                <div style={{display: 'flex', justifyContent: 'space-between', minWidth: '77%', alignItems: 'center'}}>
+                <div className="chart-header" style={{display: 'flex', justifyContent: 'space-between', minWidth: '77%', alignItems: 'center'}}>
                     <div style={{fontWeight: 'bold', marginBottom: '1%'}}>
                         <div>{item}</div>
                         {this.state.showNewCaseChartFlag&&<div className="showNewCaseText" onClick={()=>this.toggleNewCases(item)}>{!this.state.showNewCases[item]?<div>show new cases</div>:<div>hide new cases</div>}</div>}
@@ -167,7 +167,7 @@ export default class StateCharts extends React.Component {
     render() {
         let that = this;
         return (
-            <div style={{display: 'flex', flexWrap: 'wrap', alignItems: 'start', padding: '0% 7% 2% 7%'}}>
+            <div className="state-chart" style={{display: 'flex', flexWrap: 'wrap', alignItems: 'start', padding: '0% 7% 2% 7%'}}>
                 {(Object.keys(this.state.data)).map(function(item, index){
                     return that.loadStatesGraph(item, index)
                 }

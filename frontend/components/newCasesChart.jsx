@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
-    Line, XAxis, YAxis, ReferenceLine, 
-    Tooltip, CartesianGrid, Area, ComposedChart, LineChart, ReferenceDot
+    Line, XAxis, YAxis,  
+    Tooltip, CartesianGrid, LineChart
 } from 'recharts';
 import CustomTooltip from './customTooltip';
 import moment from 'moment';
@@ -11,6 +11,7 @@ export default class NewCasesChart extends React.Component {
         super(props);
     }
     render() {
+        console.log(this.props.data)
         return(
             <div className="newCasesChartBase">
                 <LineChart

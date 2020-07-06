@@ -3,9 +3,15 @@ import {
     Line, XAxis, YAxis, ReferenceLine, 
     Tooltip, CartesianGrid, Area, ComposedChart
 } from 'recharts';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route
+} from "react-router-dom";
 
-import {getCovidDistrictData} from '../services/covidData';
+import {getCovidDistrictData, getDistrictNewCasesData} from '../services/covidData';
 import CustomTooltip from './customTooltip';
+import NewCasesChart from './newCasesChart';
 import moment from 'moment';
 
 export default class DistrictCharts extends React.Component {
@@ -14,7 +20,9 @@ export default class DistrictCharts extends React.Component {
         this.state = {
             data: [],
             selectedState: -1,
-            strokeColor: 'red'
+            strokeColor: 'red',
+            showNewCases: {},
+            showNewCaseChartFlag: true
         }
         this.loadStatesGraph = this.loadStatesGraph.bind(this);
     }
@@ -26,10 +34,34 @@ export default class DistrictCharts extends React.Component {
                 this.setState({
                     selectedState: Object.keys(this.state.data)[0]
                 })
+                getDistrictNewCasesData().then((data)=>{
+                    if(!data.error) {
+                        this.setState({
+                            newCasesData: data,
+                            showNewCaseChartFlag: true
+                        })
+                    } else {
+                        this.setState({
+                            showNewCaseChartFlag: false
+                        })
+                    }
+                })
             })
         }).catch(err=>{
             
         })
+    }
+    toggleNewCases(stateName) {
+        let flag = this.state.showNewCases[stateName];
+
+        let stateNewCase = {};
+        stateNewCase[stateName] = !flag;
+
+        let newShowNewCase = Object.assign({}, this.state.showNewCases, stateNewCase);
+
+        this.setState({
+            showNewCases: newShowNewCase
+        });
     }
     loadStatesGraph(item, index) {
         try{
@@ -38,13 +70,15 @@ export default class DistrictCharts extends React.Component {
             let myData = districtArray[item]
             let lastRT = (+myData.item[myData.item.length-1].RT).toFixed(2)
             return(
-                <div key={index} id={""+item} onClick={(event)=>event.preventDefault()} width="100%" style={{display: 'flex', flexDirection: 'column', alignItems: 'start', marginTop: '1%', marginBottom: '1%', color: 'rgba(0,0,0,0.85)'}}>
-                    <div style={{display: 'flex', justifyContent: 'space-between', minWidth: '77%', alignItems: 'center'}}>
+                <div key={index} id={""+item} onClick={(event)=>event.preventDefault()} style={{display: 'flex', flexDirection: 'column', alignItems: 'start', marginTop: '1%', marginBottom: '1%', color: 'rgba(0,0,0,0.85)'}}>
+                    <div className="smallChartHeader" style={{display: 'flex', justifyContent: 'space-between', minWidth: '77%', alignItems: 'center'}}>
                         <div style={{fontWeight: 'bold', marginBottom: '1%'}}>
-                            {item}
+                            <div>{item}</div>
+                            {this.state.showNewCaseChartFlag&&<div className="showNewCaseText" onClick={()=>this.toggleNewCases(item)}>{!this.state.showNewCases[item]?<div>show new cases</div>:<div>hide new cases</div>}</div>}
                         </div>
                         <div style={{fontWeight: 'bold', marginBottom: '1%', color: lastRT<1?"rgba(53, 179, 46, 1)":"rgba(235, 83, 88, 1)"}}>{lastRT}</div>
                     </div>
+                    <div className={!this.state.showNewCases[item]?"stateComposedBase":"stateComposedNewCase"}>
                     <ComposedChart
                     width={400}
                     height={250}
@@ -75,7 +109,7 @@ export default class DistrictCharts extends React.Component {
                             interval="preserveStartEnd" 
                             tickCount={1} 
                             tickFormatter={(tickItem)=>moment(tickItem).format('D/M')} 
-                            tick={{fill: 'rgba(0, 0, 0, 0.4)', fontSize: '12px' }} 
+                            tick={!this.state.showNewCases[item]?{fill: 'rgba(0, 0, 0, 0.4)', fontSize: '12px' }:false} 
                             tickLine={false} 
                             stroke="rgba(0, 0, 0, 0.05)"
                             fill="black"
@@ -87,7 +121,7 @@ export default class DistrictCharts extends React.Component {
                             interval="preserveStartEnd"
                             minTickGap={3} 
                             stroke="rgba(0, 0, 0, 0.05)"
-                            tick={{fill: 'rgba(0, 0, 0, 0.4)', fontSize: '12px' }} 
+                            tick={!this.state.showNewCases[item]?{fill: 'rgba(0, 0, 0, 0.4)', fontSize: '12px' }:false} 
                             tickLine={false} 
                             orientation="right"
                             allowDataOverflow={true}
@@ -132,7 +166,8 @@ export default class DistrictCharts extends React.Component {
                             dataKey='RT_90' 
                             fill={"url(#color90"+index+")"}
                         />
-                    </ComposedChart>
+                    </ComposedChart></div>
+                    {this.state.showNewCaseChartFlag && this.state.showNewCases[item] && <NewCasesChart data={this.state.newCasesData[item]} />}
                 </div>
             )
         }catch(err) {
@@ -149,6 +184,11 @@ export default class DistrictCharts extends React.Component {
         let that = this;
         return (
             <div className="districtContainer">
+                {/* {this.state.selectedState=="Maharashtra"&&<Route path={"/rtcovid/districts"}>
+                    <div className="top-notes">
+                        * Please note there is an aberration in the new cases data for Maharashtra's districts for 29th May. On this day, the data showed 0 new cases for all districts in Maharashtra. This has led to a dip in the Rt values. around this date. I will update the charts once I have more accurate data for that day.
+                    </div>
+                </Route>} */}
                 <select name="states" id="states_select" value={this.state.selectedState} onChange={(event)=>this.handleStateChange(event)}>
                     {Object.keys(this.state.data).map((item, index) => <option key={index} value={item}>{item}</option>)}
                 </select>

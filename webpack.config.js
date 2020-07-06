@@ -34,7 +34,8 @@ var config = {
     },
     plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify("production")
+      'process.env.NODE_ENV': JSON.stringify("production"),
+      AUTH_TOKEN: JSON.stringify("Bearer 12tFt61L33aZ0qPEWU3lMRYKuUJye69T27wISkjWfB97I8JfUU1ritRipl0Jtvi3XB1SA7LKGUNpf61tnsNjug")
     }),
   ], 
   optimization: {
