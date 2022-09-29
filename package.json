@@ -30,7 +30,7 @@
     "node-persist": "^3.0.5",
     "react-router-dom": "^5.2.0",
     "react-select-search": "^2.0.0",
-    "recharts": "^1.8.5"
+    "recharts": "^2.1.14"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
